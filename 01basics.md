@@ -1,1 +1,163 @@
 # Clean Code Basics
+
+There are a few low-hanging fruits when it comes to making code readable. Applying these consistently will give your code an instant, drastic boost in clarity.
+
+Programming languages are general purpose. Our code is specific to our needs. Therefore the programming language keywords don;t add much by way of explaining our code. That must happen by the names we choose for things.
+
+![Naming things](/images/naming-things.png)
+
+> Naming is critical. Language keywords are too general
+
+## Naming data - variables
+
+The most common ingredient in code is the humble variable:
+
+```javascript
+let t = 0.0;
+```
+
+We see a variable declared and initialised to zero.
+
+_Why is it there? What does t represent?_
+
+The meaning is unclear. The simplest way to help our readers is to name the variable for what it holds.
+
+Let's say in this case our variable `t` is holding the total price of an invoice.
+
+Let's call it that:
+
+```javascript
+let totalPrice = 0.0;
+```
+
+That now helps us understand what that variable is _intended_ to be used for.
+
+> **Name variables by what they store**
+
+It's important that our variable names are accurate. If we have `totalPrice` make sure it is _only_ ever used to hold a total price - nothing else.
+
+### Common trap: naming by data type
+
+A common mistake is to name variables according to a data type:
+
+```javascript
+let myString = "BJSS Academy";
+```
+
+_What does myString mean? Why would I use your string?_
+
+Remember to name variable according to what they hold. In this case `myString` holds a department name within bjss, so let's call it that:
+
+```javascript
+let departmentName = "BJSS Academy";
+```
+
+## Naming code blocks - functions and methods
+
+All programs feature blocks of code.
+
+In all but the simplest of scripts, we aim to divide code up into smaller blocks. We then assemble these blocks to make a bigger application. This is [decomposition](https://www.bbc.co.uk/bitesize/topics/zkcqn39/articles/z8ngr82#zg73r2p), where we take a big problem and split it up.
+
+Most languages provide tools to give names to these code blocks and organise them. Typically functions or procedures. Also classes and methods in object-oriented languages.
+
+It's important to be able to tell what a function does from its name.
+
+What does this function do?
+
+```javascript
+function z(a) {
+  return "Hello, " + a;
+}
+```
+
+We have to look inside the function and _reverse engineer_ what it does. In this case its seems to return the word Hello, and then add on whatever thing we passed in to it.
+
+Let's improve both the function name and the variable name to be more descriptive:
+
+```javascript
+function greetUser(name) {
+  return "Hello, " + name;
+}
+```
+
+That's better! The function will greet a user by name. Got that. Now it's clear what we intended this function to be used for.
+
+### This is abstraction - getting closer to the problem
+
+Our improved function now forms an _abstraction_. We have a higher-level building block called `greetUser` that we can use to, well, greet our users.
+
+Looking at the call site - where the function is called - this becomes even more obvious:
+
+```javascript
+greetUser("Alan");
+```
+
+This is now more than a function. We have introduced terms from our problem domain into the code. The code is beginning to speak the language of the _problem_ more strongly than of the _implementation_.
+
+We are describing **what** is being solved over **how**.
+
+Ultimately, this leads to us creating a _Domain Specific Language (DSL)_ that means our code tells the story of the problem being solved effectively.
+
+A further benefit of such abstractions is it frees us from reading the inside of the function.
+If we can trust the code we read, we don't need to understand the details of how it works. We can simply use it.
+
+This leads to our naming rule for functions:
+
+> **Name functions for what they do**
+
+A function name explains why we would call that function.
+
+### Common trap: naming by implementation details
+
+Thinking up good names is hard (...that again...).
+
+It's tempting to give up on thinking about _why_ we would want to call that function, and instead just describe _how_ it works:
+
+```javascript
+returnWordHelloAppendParameter("Alan");
+```
+
+does form a pretty good description of our function.
+
+But it is clear that this conveys less uesful information than
+
+```javascript
+greetUser("Alan");
+```
+
+Focus on what functions do, in the context of why we would want to call them.
+
+There is a further benefit of this abstracted approach. We can change how the function works internally, without having to _ripple out_ that change to every call site:
+
+```javascript
+// Change the wording of the greeting. Enforce proper capitalisation of the name
+function greetUser(name) {
+  const capitalisedName = name[0].toUpperCase() + name.slice(1);
+  const greeting = "Welcome, most glorious colleague " + capitalisedName;
+
+  return greeting;
+}
+
+// NOTE: No change to the rest of the codebase - MASSIVE WIN
+greetUser("alan");
+```
+
+A large part of clean coding is finding the useful abstractions, then naming them well.
+
+### Clarity is a cost saving
+
+Think about a large codebase, badly named.
+
+That reverse engineering step must be done for _every_ line of code. By _every_ programmer who touches it. _Every_ time it is touched. For the _entire lifetime_ of that code - which might be 25 years, plus.
+
+That is waste. Waste costs money - as we are paid time and materials. It slows down delivery. It also has a very demotvating and wearying effect on you as a programmer.
+
+> Clean code is **key** to being agile - it enables responding quickly to change
+
+# Next steps
+
+Applying these two naming rules consistently will hugely improve your code.
+
+Let's move on to some ideas that will help us tame complexity of bigger functions.
+
+[Thinking Small >>](/02thinkingsmall.md)

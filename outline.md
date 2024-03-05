@@ -48,7 +48,11 @@ Reduce Scope
 - Why
 - Example
 
-Vertical space
+Eliminate globals
+
+- why
+
+Use vertical space
 
 - Mental chunking
 
