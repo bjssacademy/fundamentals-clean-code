@@ -72,7 +72,7 @@ Note that now the loop body is in a function, that gives us a new opportunity to
 
 This is how our code becomes self-documenting (or at least more so). By adding more names that _explain_ the steps and sub-processes that are happening, we communicate more of our intent to future readers.
 
-### Extract if / else block
+### Extract conditional expression
 
 In a similar vein, a lot of complexity build up inside conditional statements. We can extract each ocndition into a named function.
 
@@ -111,6 +111,10 @@ function showFizzbuzzResults() {
 ```
 
 Already, that is a little easier to read. The complex nested ternary staements now attempts to explain itself. There is much ore we can do here to simplify things, but extracting the conditional expression adds a lot of clarity, simply. Mostly because it _gives us a domain term_ n the code.
+
+### Extract if / else block
+
+TODO
 
 ## Avoid deeply nested code
 
