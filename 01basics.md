@@ -168,4 +168,4 @@ Applying these two naming rules consistently will hugely improve your code.
 
 Let's move on to some ideas that will help us tame complexity of bigger functions.
 
-[Thinking Small >>](/02thinkingsmall.md)
+## [Thinking Small >>](/02thinkingsmall.md)
