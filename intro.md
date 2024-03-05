@@ -10,13 +10,42 @@ With code, there are many ways of implementing a feature. You've probably done t
 
 ```javascript
 function fb(n) {
-  return !(n % 15) ? "FizzBuzz" : !(n % 3) ? "Fizz" : !(n % 5) ? "Buzz" : n;
+  return (
+    (!(n % 15) ? "FizzBu" : !(n % 3) ? "Fi" : !(n % 5) ? "Bu" : n) +
+    (!!(n % 3) && !!(n % 5) ? "" : "zz")
+  );
 }
 ```
 
-> Can you guess what it is yet?
+Hurray! We did a thing! It works! Look at its elegant optimisations! _Aren't we a clever cat_
 
-But you come back to the code later, and have no clue what that code is doing. You rip it all out and replace with some new code. This code does the same thing, but in a way you and your team can understand. Maybe like this:
+Ah, yes. The unbridled optimism of that first cut of code.
+
+> _Wavy lines ... time passes ..._
+
+Only next week, we need to implement a new feature from Mx. Customer.
+
+We need to make the function return the word "dog" for number values divisible by 10.
+
+**And it is an utter, utter nightmare to add**
+
+Try it ;)
+
+And that's just one line of code, in one function, in a codebase on an unloved planet on the Western spiral arm of the galaxy.
+
+Imagine doing hundreds of similar thiings each week - with millions of lines of code, none of which you have ever seen before.
+
+## Tell us it doesn't have to be this way!
+
+Well, it does have to be this way. Unless YOU. Unless you decide that you will spend more effort when your write code to make sure that we can _read_ code.
+
+![BJSS Needs clean code!](/images/needs-you-clean-coder.jpg)
+
+Humans are not magic at reading code. Readable code does not write itself. It needs care. At each of the trade-off points where we decide to go with approach A or approach B, we must choose wisely.
+
+We must first know that alternatives A and B are even possible. That's what this BJSS Academy guide is all about.
+
+Here's one possibility for our original function `fb()`:
 
 ```javascript
 function dividesBy15(n) {
@@ -48,11 +77,26 @@ function toFizzBuzzText(n) {
 }
 ```
 
-The second code block is longer. It has more words. Specifically, it has more _domain terms_ - words that are part of the problem domain. This code uses the function name `toFizzBuzzText` as that describes its _purpose_ for our problem. Helper functions such as `dividesBy15` are there to _explain_ steps of the solution.
+Now, this is longer. It's more wordy. It has more lines of code. It takes up more space in the source file.
 
-This second block is simpler in nature. There are no nested ternary statements to make your brain melt.
+But it is simpler.
 
-That is pretty much how we change _dirty code_ into _clean code_.
+- It has _domain terms_ - words that explain the problem being solved
+- It uses the simpler syntax of if-return rather than nested ternary statements
+- It removes the unnecessary 'optimisation' (ahem) surrounding the "zz"
+- Each line does less, reducing _cognitive load_
+- The flow of exeuction is straightforward
+- Helper functions give names that _explain_ the steps of the solution
+
+In many ways, this second code block is _better_. Yes, that is subjective. Yes, against some measures, the first block wins out.
+
+But in terms of keeping code easy to work with across a whole team, the second block is a good choice.
+
+This second block is simpler in nature. It makes your brain melt less.
+
+This is what clean code aims to do - improve communication between programmers.
+
+![Tony Hoare on clean code](/images/quote-tony-hoare.jpg)
 
 ### Defining clean code
 
@@ -77,27 +121,33 @@ Beyond trivial projects, programming is a team sport. We work in teams, growing 
 
 _Most of the code we work with will be written by others._
 
-### Code the team can understand
+### Shared understanding
 
-As novices, we tend to work alone. We are - justifiably - proud when some code simply works. Professionally, that is table stakes. We need code that the whole team can work with.
+When working in a team, it is essential that every member can understand the codebase.
+
+As novices, we tend to work alone. We are - justifiably - proud when some code simply works.
+
+Professionally, working code is merely table stakes. Of course it must do _at least_ that. But we need more. We need code that the whole team can work with.
 
 The first task in writing new code is to understand the code that is already there. Then we can decide how our new code fits together with it. We never write code in isolation; it will always have to integrate with what's there.
 
 Being able to understand what's there is critical.
 
-That means that our code must be understood by others and their code must be understandable to us.
+_That means that our code must be understood by others and their code must be understandable to us_.
 
-### Defect prevention
+### Fewer defects
 
-Defects - bugs - cost us. They slow down delivery. They can cause financial and reputational loss. SOftware defects have been known to kill people and result in their false imprisonment.
+Defects - bugs - cost us. They slow down delivery. They can cause financial and reputational loss.
 
-We don't like defects.
+Software defects have been known to [kill people](http://sunnyday.mit.edu/papers/therac.pdf) or result in their [false imprisonment](https://www.bbc.co.uk/news/business-56718036).
 
-Clean code aims to use syntax and logic that is straightforward and clear. It does what it says. You don;t need to factor in weird edge cases of the language to understand the code.
+**We don't like defects**.
 
-Doing this reduces defects. When defects happen, they are easier to spot, as we find it easier to understand what the code is - and is not - doing.
+Clean code aims to use syntax and logic that is straightforward and clear. It does what it says. You don't need to factor in weird edge cases of the language to understand the code.
 
-### Rapid delivery
+Doing this reduces defects. When defects happen, they are easier to spot. Clean code makes it easier to understand what the code is - and is not - doing.
+
+### Faster delivery
 
 With fewer defects and shorter times to understand the code, Clean code gives us faster delivery times. It gives us _smoother_ delivery times as well, with added confidence that our code is likely to be correct.
 
@@ -109,7 +159,7 @@ With fewer defects and shorter times to understand the code, Clean code gives us
 - Defects are more obvious to spot
 - Changes are less likely to break unrelated areas
 
-# Get Started
+# Getting started
 
 Let's look at the low-hanging fruit of how to write clean code
 [Basics >>](/01basics.md)
