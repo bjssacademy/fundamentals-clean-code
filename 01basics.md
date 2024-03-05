@@ -42,15 +42,23 @@ A common mistake is to name variables according to a data type:
 
 ```javascript
 let myString = "BJSS Academy";
+const number = 36;
 ```
 
 _What does myString mean? Why would I use your string?_
 
-Remember to name variable according to what they hold. In this case `myString` holds a department name within bjss, so let's call it that:
+Remember to name variables according to what they hold.
+
+Let's _rename_ those variables to do just that:
 
 ```javascript
 let departmentName = "BJSS Academy";
+const maximumNumberOfStudents = 36;
 ```
+
+> Your IDE often has a Refactor > Rename option that does this automatically
+
+This is much more useful to future readers.
 
 ## Naming code blocks - functions and methods
 
@@ -92,11 +100,11 @@ Looking at the call site - where the function is called - this becomes even more
 greetUser("Alan");
 ```
 
-This is now more than a function. We have introduced terms from our problem domain into the code. The code is beginning to speak the language of the _problem_ more strongly than of the _implementation_.
+This is now more than a function. We have introduced terms from our problem domain into the code. The code is beginning to speak the language of the _problem_ more strongly than that of the _implementation_.
 
 We are describing **what** is being solved over **how**.
 
-Ultimately, this leads to us creating a _Domain Specific Language (DSL)_ that means our code tells the story of the problem being solved effectively.
+Ultimately, this leads to us creating a _Domain Specific Language (DSL)_. The more domain specific words we get in our code, the better our code tells the story of the problem being solved.
 
 A further benefit of such abstractions is it frees us from reading the inside of the function.
 If we can trust the code we read, we don't need to understand the details of how it works. We can simply use it.
@@ -117,15 +125,17 @@ It's tempting to give up on thinking about _why_ we would want to call that func
 returnWordHelloAppendParameter("Alan");
 ```
 
-does form a pretty good description of our function.
+Now, this does form a pretty good description of how our function works. But obfuscates what our function _is there for_.
 
-But it is clear that this conveys less uesful information than
+For callers of the function, we get more useful information from
 
 ```javascript
 greetUser("Alan");
 ```
 
 Focus on what functions do, in the context of why we would want to call them.
+
+> A function presents a _behaviour_ that our application can make use of
 
 There is a further benefit of this abstracted approach. We can change how the function works internally, without having to _ripple out_ that change to every call site:
 
@@ -146,11 +156,11 @@ A large part of clean coding is finding the useful abstractions, then naming the
 
 ### Clarity is a cost saving
 
-Think about a large codebase, badly named.
+Think about a large codebase, where everything is badly named (_shudders_).
 
 That reverse engineering step must be done for _every_ line of code. By _every_ programmer who touches it. _Every_ time it is touched. For the _entire lifetime_ of that code - which might be 25 years, plus.
 
-That is waste. Waste costs money - as we are paid time and materials. It slows down delivery. It also has a very demotvating and wearying effect on you as a programmer.
+That is waste. Waste costs money - as we are paid time and materials. It slows down delivery. It also has a very demotivating and wearying effect on you as a programmer.
 
 > Clean code is **key** to being agile - it enables responding quickly to change
 
