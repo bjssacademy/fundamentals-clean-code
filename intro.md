@@ -33,11 +33,13 @@ Try it ;)
 
 And that's just one line of code, in one function, in a codebase on an unloved planet on the Western spiral arm of the galaxy.
 
-Imagine doing hundreds of similar thiings each week - with millions of lines of code, none of which you have ever seen before.
+Imagine doing hundreds of similar things each week - with millions of lines of code, none of which you have ever seen before.
 
 ## Tell us it doesn't have to be this way!
 
-Well, it does have to be this way. Unless YOU. Unless you decide that you will spend more effort when your write code to make sure that we can _read_ code.
+The fact is that code that reads easy writes hard. Most of the readability of code is set when we write it. If we needlessly complicate our code, we will bewilder future readers.
+
+So we must _decide_ to be part of the solution.
 
 ![BJSS Needs clean code!](/images/needs-you-clean-coder.jpg)
 
@@ -109,7 +111,7 @@ Clean Code is shorthand for code with these properties:
 - Is made of small, independent components
 - Idiomatic for the language used
 
-It is easier to write 'dirty' code that violates these goals than it is to write clean code. Clean code never writes itself. It is intentional.
+It is easier to write 'dirty' code that violates these goals than it is to write clean code. Clean code never writes itself. It is a result of intentional code writing.
 
 > Clean code is story telling. It explains to other humans what the computer is doing
 
@@ -162,4 +164,5 @@ With fewer defects and shorter times to understand the code, Clean code gives us
 # Getting started
 
 Let's look at the low-hanging fruit of how to write clean code
-[Basics >>](/01basics.md)
+
+## [Basics >>](/01basics.md)
