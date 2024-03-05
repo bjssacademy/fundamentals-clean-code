@@ -2,11 +2,9 @@
 
 There are a few low-hanging fruits when it comes to making code readable. Applying these consistently will give your code an instant, drastic boost in clarity.
 
-Programming languages are general purpose. Our code is specific to our needs. Therefore the programming language keywords don;t add much by way of explaining our code. That must happen by the names we choose for things.
+Programming languages are general purpose. Our code is specific to our needs. Therefore the programming language keywords don't add much by way of explaining our code. That must happen by the names we choose for things.
 
 ![Naming things](/images/naming-things.png)
-
-> Naming is critical. Language keywords are too general
 
 ## Naming data - variables
 
@@ -56,7 +54,7 @@ let departmentName = "BJSS Academy";
 const maximumNumberOfStudents = 36;
 ```
 
-> Your IDE often has a Refactor > Rename option that does this automatically
+> Your IDE often has a _Refactor > Rename_ option that does this automatically
 
 This is much more useful to future readers.
 
@@ -78,7 +76,7 @@ function z(a) {
 }
 ```
 
-We have to look inside the function and _reverse engineer_ what it does. In this case its seems to return the word Hello, and then add on whatever thing we passed in to it.
+We have to look inside the function and _reverse engineer_ what it does. In this case it seems to return the word Hello, and then add on whatever thing we passed in to it.
 
 Let's improve both the function name and the variable name to be more descriptive:
 

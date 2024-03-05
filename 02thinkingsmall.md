@@ -2,6 +2,8 @@
 
 Big Ideas are best solved in Small Chunks.
 
+![Great things small things van gogh](/images/great-things-van-gogh.jpeg)
+
 basics
 Comment -> name
 
