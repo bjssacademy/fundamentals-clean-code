@@ -352,9 +352,9 @@ function sayHelloToEveryoneExceptDave(users) {
 
 #### But did we solve the right problem?
 
-Actually, the code above greet everyone except Dave.
+The code above treats the problem to solve as "greet everyone except Dave". It works by iterating over everyone, and skipping greeting code for Dave.
 
-There is a better way to think about this problem, which will clean up the code nicely.
+There is a better way to think about this problem, one which will clean up the code nicely.
 
 We want to divide our users into two groups:
 
@@ -376,7 +376,9 @@ function sayHelloToEveryoneExceptDave(users) {
 }
 ```
 
-That separates the concerns of greeting people we want to grret from the concern of finding out who those people are. A cleaner approach this time, not just cleaner syntax for the code.
+That separates the concerns of greeting people we want to greet from the concern of finding out who those people are. A cleaner _approach_ this time, not just cleaner syntax for the code.
+
+Always prefer these cleaner approaches. It pays to think around the problem, rather than just throw keywords like `continue` at it.
 
 Sorry, Dave. At least you got some clean code in the end.
 
