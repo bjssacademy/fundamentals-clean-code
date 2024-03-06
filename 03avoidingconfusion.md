@@ -65,3 +65,27 @@ But what about those tiny transgressions?
 Make sure that you can understand what to expect by the names and signatures of your functions and variables.
 
 > **Names are so important. All we have are names**
+
+## Prefer switch to if-else-if chains
+
+asdasd
+
+## Avoid global anything
+
+asdasd
+
+## Don't rely on side effects
+
+## Use the smallest scope
+
+asdasd
+
+## Prefer read-only
+
+asdad
+
+# Moving on
+
+For the final part of this guide, let's look at the bigger pciture. How do we grow a larger application out of small pieces?
+
+##[Thinking Big >>](/04thinkingbig.md)
