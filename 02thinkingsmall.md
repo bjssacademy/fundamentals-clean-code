@@ -6,7 +6,7 @@ Big Ideas are best solved in small chunks.
 
 Typical BJSS clients are big organisations - banks, health care, national agencies. They have many users, high availability, and need oodles of data to be shunted about. They tend to use large applications - usually fleets of microservices. These can run into millions of lines of code.
 
-We mortals simply cannot fit that that into our head.
+We mortals simply cannot fit all that into our head.
 
 ## Don't eat the whole elephant
 
@@ -14,7 +14,7 @@ As the saying goes, "How do you eat an elephant? One bite at a time".
 
 We cannot avoid complexity entirely. Some of what our clients need doing is inherently complex. But that does not mean we have to solve all of the problems in one single function.
 
-We _manage_ complexity by using a strategy of divide and conquer. We eat that elephant one bite at a time.
+Instead, we _manage complexity_ by using a strategy of divide and conquer. We eat that elephant one bite at a time.
 
 To grasp a large problem, we break it down. Our codebase becomes a collection of largely separate modules, each one built from small, highly-focussed pieces of code.
 
@@ -44,12 +44,15 @@ function showFizzbuzzResults() {
 }
 ```
 
-Back to our fizz buzz example, this code has a loop to run fizzbuzz over the numbers 1 to 100. The body of the loop is quite densely complex in this case. Not necessarily 'long', but it slows down the reading of that loop body. We find the same issue even with simpler code, once we hit around 30 lines or so inside the loop. Any code that goes off the edge of one screen gets hard to mentally follow.
+Going back to our fizzbuzz example, this code has a loop to run fizzbuzz over the numbers 1 to 100. The body of the loop is quite densely complex in this case. Not necessarily 'long' in length, but it packs a lot in. It's hard to skim read, certainly.
 
-It's all down to our arch enemy _cognitive overload_.
+We find the same issue even with simpler code, once we hit around 30 lines or so inside the loop. Any code that does not fit on one screen gets hard to mentally follow.
+
+The difficulty is human in nature. It's all down to our arch enemy _cognitive overload_.
 
 We can improve matters by extracting the loop body into its own function.
-Our IDE might even help us with a _Refactor >> Extract function_ facility - do check if that is available on your system.
+
+> Your IDE might be able to help. Check for a _Refactor >> Extract Function_ facility
 
 ```javascript
 function toFizzbuzzResult(n) {
@@ -123,11 +126,11 @@ function showFizzbuzzResults() {
 
 > Note: that JS as written might not compile. That's due to the multi-line formatting, and JS' legendary insistence on adding semicolons when it feels like it
 
-Already, that is a little easier to read. The complex nested ternary staements now attempt to explain themselves. There is much ore we can do here to simplify things, but extracting the conditional expression adds a lot of clarity, simply. Mostly because it _gives us a domain term_ in the code.
+Already, that is a little easier to read. The complex nested ternary staements now attempt to explain themselves. There is much more we can do here to simplify things, but extracting the conditional expression adds a lot of clarity, simply. Mostly because it _gives us words from the problem domain_ in the code.
 
 ### Extract if / else block
 
-Another simple idea is to extract the code into functions that lives inside the if and else blocks.
+Another simple idea is to extract the code that lives inside the if and else blocks into their own functions.
 
 We can move from this:
 
@@ -176,7 +179,9 @@ if ( isUnderAgeForGlue(age) ) {
 
 > Trade-offs: We must find the balance between under-explaining and over-explaining
 
-The benefit - once again (...are we picking up on this, yet?) - is that we can explain what that code block does. The condtional block now becomes a generic
+The benefit - once again (...are we picking up on this, yet?) - is that we can explain what that code block does.
+
+If we consistently do this, we create a generic building block, that looks like this (in pseudocode):
 
 ```
 IF (this part of the problem happens)
@@ -186,7 +191,9 @@ ELSE
     make the other outcome happen
 ```
 
-Once again, it is creating small abstractions that bring us one step closer to explaining the problem we are solving by names in our code.
+Seeing consistent patterns in our code is another technique that aids our mental chunking.
+
+Clean code is all about creating small abstractions that bring us closer to explaining the problem we are solving.
 
 ## Avoid deeply nested conditionals
 
@@ -210,6 +217,8 @@ function canBuyGlue(user) {
 
 Sorry you had to see that. It's something all rookies must go through to qualify. We actually see a lot of that style of coding from applicants to the BJSS Academy, during their Codility test.
 
+To be fair, you will see a _whole lot worse_ over your career. This is just a textbook example. Wait until you get a few pages of nested nonsense that scrolls of the end of the page!
+
 Let's assume the above code works.
 
 Can we simplify it?
@@ -218,7 +227,7 @@ Can we simplify it?
 
 _Guard clauses_ are a useful pattern where we want to guard some behaviour from being used when it is not relevant.
 
-They make use of a sequence of if staements that check for the _opposite_ condition of what is needed. The function will immediately return if that opposite condition occurs.
+Guards make use of a sequence of `if` staements that check for the _opposite_ condition of what is needed. The function will immediately `return` if that opposite condition occurs.
 
 The above would become:
 
@@ -283,8 +292,8 @@ Here's some code to draw an ASCII-Art square:
 ```javascript
 const length = 5;
 
-for (let i = 0; i < length; i++) {
-  for (let j = 0; j < lemgth; j++) {
+for (let row = 0; row < length; row++) {
+  for (let col = 0; col < lemgth; col++) {
     print("*");
   }
 
@@ -296,7 +305,7 @@ We can reduce cognitive load by extracting the inner loop:
 
 ```javascript
 function drawRow(length) {
-  for (let j = 0; j < lemgth; j++) {
+  for (let col = 0; col < lemgth; col++) {
     print("*");
   }
 
@@ -305,8 +314,8 @@ function drawRow(length) {
 
 const length = 5;
 
-for (let i = 0; i < length; i++) {
-  drawRow();
+for (let row = 0; row < length; row++) {
+  drawRow(length);
 }
 ```
 
@@ -330,9 +339,9 @@ function sayHelloToEveryoneExceptDave(users) {
 }
 ```
 
-Here, it's pretty clear what's going on. But as that loop body gets a little longer, it gets harder to track which lines execute when and what's in the variables. The fact that we are skipping some of the code execution makes refactoring that loop harder sometimes.
+Here, it's pretty clear what's going on. The `continue` keyword skips over the part that would write the greeting,. But as that loop body gets a little longer, it gets harder to track which lines execute when and what's in the variables. The fact that we are skipping some of the code execution makes refactoring that loop harder sometimes.
 
-Let's combine extracting the loop body with using a guard clause:
+Let's combine _extracting the loop body_ with _using a guard clause_:
 
 ```javascript
 function showGreetingExceptToDave(user) {
@@ -350,16 +359,16 @@ function sayHelloToEveryoneExceptDave(users) {
 }
 ```
 
-#### But did we solve the right problem?
+#### Consider a better algorithm
 
-The code above treats the problem to solve as "greet everyone except Dave". It works by iterating over everyone, and skipping greeting code for Dave.
+The code above treats the problem to solve as "greet everyone except Dave". It works by iterating over everyone, and skipping the greeting code for Dave.
 
-There is a better way to think about this problem, one which will clean up the code nicely.
+But is there is a better way to think about this problem, one which will clean up the code nicely?
 
 We want to divide our users into two groups:
 
 - Those we want to greet
-- Those we don't (Dave)
+- Those we don't (the 'group' that is Dave)
 
 We can do this using a filter operation:
 
@@ -370,13 +379,15 @@ function showGreeting(user) {
 
 function sayHelloToEveryoneExceptDave(users) {
   const usersToGreet
-    = users.filter( user => user != "Dave");
+    = users.filter(user => user != "Dave");
 
   usersToGreet.forEach(user => showGreeting(user););
 }
 ```
 
-That separates the concerns of greeting people we want to greet from the concern of finding out who those people are. A cleaner _approach_ this time, not just cleaner syntax for the code.
+That separates the concerns of showing a greeting from the concern of finding out who to greet. A cleaner _algorithm_ this time, not just cleaner syntax for the code.
+
+> Prefer cleaner algorithms
 
 Always prefer these cleaner approaches. It pays to think around the problem, rather than just throw keywords like `continue` at it.
 
