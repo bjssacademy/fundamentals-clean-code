@@ -74,7 +74,7 @@ We reduce cognitive load by splitting the problem into two smaller pieces: a loo
 
 As the loop body becomes more complex in whatever way, this simple refactoring pays well.
 
-### Another chance to explain what is being solved
+#### Another chance to explain what is being solved
 
 Now we have the loop body in its own function, that gives us a new opportunity to _name_ that function - according to what it does.
 
@@ -188,7 +188,167 @@ ELSE
 
 Once again, it is creating small abstractions that bring us one step closer to explaining the problem we are solving by names in our code.
 
-## Avoid deeply nested code
+## Avoid deeply nested conditionals
+
+**Public Service Announcement: Deeply nested code follows. Reader discretion is advised**
+
+```javascript
+function canBuyGlue(user) {
+  if (isOver18(user)) {
+    if (isAcademyStudent(user)) {
+      if (isStudyingConcurrency(user)) {
+        return true;
+      } else if (isBewilderedByDependencyInversion(user)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+```
+
+Sorry you had to see that. It's something all rookies must go through to qualify. We actually see a lot of that style of coding from applucants to the BJSS Academy, during their Codility test.
+
+Let's assume the above works.
+
+Can we simplify it?
+
+### Option 1: Use guard clauses
+
+_Guard clauses_ are a useful pattern where we want to guard some behaviour from being used when it is not relevant.
+
+They make use of a sequence of if staements that check for the _opposite_ condition of what is need. The function will immediately return if that opposite condition occurs.
+
+The above would become:
+
+```javascript
+function canBuyGlue(user) {
+  if (!isOver18(user)) {
+    return false;
+  }
+
+  if (!isAcademyStudent(user)) {
+    return false;
+  }
+
+  if (!isStudyingConcurrency(user)) {
+    return isBewilderedByDependencyInversion(user);
+  }
+
+  return true;
+}
+```
+
+You can see how the _if-return_ ladder 'guards' the code block at the end. You can also see in this example how the else-if has complicated the logic.
+
+### Option 2: Combine logic into an explaining variable
+
+Another translation is this:
+
+```javascript
+function canBuyGlue(user) {
+  const isAllowed = isOver18(user) && isAcademyStudent(user);
+
+  if (isAllowed && isStudyingConcurrency(user)) {
+    return true;
+  }
+
+  if (isAllowed && isBewilderedByDependencyInversion(user)) {
+    return true;
+  }
+
+  return false;
+}
+```
+
+Which itself simplifies to:
+
+```javascript
+function canBuyGlue(user) {
+  const isAllowed = isOver18(user) && isAcademyStudent(user);
+
+  if (isAllowed && isStudyingConcurrency(user)) {
+    return true;
+  }
+
+  return isAllowed && isBewilderedByDependencyInversion(user);
+}
+```
+
+## Avoid nested loops
+
+Here's some code to draw an ASCII-Art square:
+
+```javascript
+const length = 5;
+
+for (let i = 0; i < length; i++) {
+  for (let j = 0; j < lemgth; j++) {
+    print("*");
+  }
+
+  printNewline();
+}
+```
+
+We can reduce cognitive load by extracting the inner loop:
+
+```javascript
+function drawRow(length) {
+  for (let j = 0; j < lemgth; j++) {
+    print("*");
+  }
+
+  printNewline();
+}
+
+const length = 5;
+
+for (let i = 0; i < length; i++) {
+  drawRow();
+}
+```
+
+Once again, we get to introduce another domain term to explain what that inner loop is doing. in this cases, it will draw a row.
+
+As loops get more complex internally, this technique pays off well.
+
+### Avoid continue and break
+
+Loops generally have ways to circumvent part of their loop code:
+
+```javascript
+function sayHelloToEveryoneExceptDave(users) {
+  for (user in users) {
+    if (user == "Dave") continue;
+
+    console.log(greetUser(user));
+  }
+}
+```
+
+Here, it's pretty clear what's going on. But as that loop body gets a little longer, it gets harder to track which lines execute when and what's in the variables. The fact that we are skipping some of the code execution makes refactoring that loop harder sometimes.
+
+Let's combine extracting the loop body with using a guard clause:
+
+```javascript
+function showGreetingExceptToDave(user) {
+  if (user == "Dave") {
+    return;
+  }
+
+  console.log(greetUser(user));
+}
+
+function sayHelloToEveryoneExceptDave(users) {
+  for (user in users) {
+    showGreetingExceptToDave(user);
+  }
+}
+```
+
+Sorry, Dave. At least you got some clean code in the end.
 
 - cyclomatic complexity
 - if return
