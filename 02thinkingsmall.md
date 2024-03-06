@@ -44,10 +44,12 @@ function showFizzbuzzResults() {
 }
 ```
 
-Back to our fizz buzz example, this code has a loop to run fizzbuzz over the numbers 1 to 100. The body of the loop is quite densely complex in this case. Not necessarily 'long', but it slows down the reading of that loop body. We find the same issue even with simpler code, once we hit around 30 lines or so inside the loop.
+Back to our fizz buzz example, this code has a loop to run fizzbuzz over the numbers 1 to 100. The body of the loop is quite densely complex in this case. Not necessarily 'long', but it slows down the reading of that loop body. We find the same issue even with simpler code, once we hit around 30 lines or so inside the loop. Any code that goes off the edge of one screen gets hard to mentally follow.
+
+It's all down to our arch enemy _cognitive overload_.
 
 We can improve matters by extracting the loop body into its own function.
-Our IDE might help us with a _Refactor >> Extract function_ facility.
+Our IDE might even help us with a _Refactor >> Extract function_ facility - do check if that is available on your system.
 
 ```javascript
 function toFizzbuzzResult(n) {
@@ -59,16 +61,24 @@ function toFizzbuzzResult(n) {
 
 function showFizzbuzzResults() {
   for (let number = 1; number <= 100; number++) {
-    console.log(toFizzbuzzResult(number));
+    const text = toFizzbuzzResult(number);
+    console.log(text);
   }
 }
 ```
 
-We reduce cognitive load by splitting the problem into two smaller pieces: a loop, which calls a function to determine the fizzbuzz result.
+We reduce cognitive load by splitting the problem into two smaller pieces: a loop, which calls a function to determine the fizzbuzz result. It is now easy to see that we have two big ideas:
 
-As loop body become more complex in whatever way, this simple refactoring pays well.
+- A loop, that does a thing multiple times
+- A thing that gets done
 
-Note that now the loop body is in a function, that gives us a new opportunity to _name_ that function - according to what it does.
+As the loop body becomes more complex in whatever way, this simple refactoring pays well.
+
+### Another chance to explain what is being solved
+
+Now we have the loop body in its own function, that gives us a new opportunity to _name_ that function - according to what it does.
+
+That thing we are doing multiple times - _why_ are we doing it? What will the outcome be?
 
 This is how our code becomes self-documenting (or at least more so). By adding more names that _explain_ the steps and sub-processes that are happening, we communicate more of our intent to future readers.
 
@@ -110,6 +120,8 @@ function showFizzbuzzResults() {
   }
 }
 ```
+
+> Note: that JS as written might not compile. That's due to the multi-line formatting, and JS' legendary insistence on adding semicolons when it feels like it
 
 Already, that is a little easier to read. The complex nested ternary staements now attempt to explain themselves. There is much ore we can do here to simplify things, but extracting the conditional expression adds a lot of clarity, simply. Mostly because it _gives us a domain term_ in the code.
 
