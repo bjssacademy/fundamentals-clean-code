@@ -20,6 +20,30 @@ To grasp a large problem, we break it down. Our codebase becomes a collection of
 
 At the code level, several simple techniques help us achieve this. The following sections describe those most commonly used.
 
+## Replace magic numbers
+
+Magic numbers are constants in the code that have special meaning. They are general limits or trigger points. They are often numbers, but could be any type - magic strings, magic booleans or whatever.
+
+Here is a magic number 9 as part of a conditional:
+
+```javascript
+if (numberOfShips > 9) {
+  // Do something
+}
+```
+
+What does it mean?
+
+Let's eliminate the guesswork for our future readers:
+
+```javascript
+const maximumShipsInGame = 9;
+
+if (numberOfShips > maximumShipsInGame) {
+  // Do something
+}
+```
+
 ## Use small code blocks
 
 New requirements, new edge cases and new error conditions all tend to increase the size of our code blocks.
@@ -208,9 +232,9 @@ function canBuyGlue(user) {
 }
 ```
 
-Sorry you had to see that. It's something all rookies must go through to qualify. We actually see a lot of that style of coding from applucants to the BJSS Academy, during their Codility test.
+Sorry you had to see that. It's something all rookies must go through to qualify. We actually see a lot of that style of coding from applicants to the BJSS Academy, during their Codility test.
 
-Let's assume the above works.
+Let's assume the above code works.
 
 Can we simplify it?
 
@@ -218,7 +242,7 @@ Can we simplify it?
 
 _Guard clauses_ are a useful pattern where we want to guard some behaviour from being used when it is not relevant.
 
-They make use of a sequence of if staements that check for the _opposite_ condition of what is need. The function will immediately return if that opposite condition occurs.
+They make use of a sequence of if staements that check for the _opposite_ condition of what is needed. The function will immediately return if that opposite condition occurs.
 
 The above would become:
 
@@ -320,7 +344,9 @@ Loops generally have ways to circumvent part of their loop code:
 
 ```javascript
 function sayHelloToEveryoneExceptDave(users) {
-  for (user in users) {
+  for (i = 0; i < users.length; i++) {
+    const user = users[i];
+
     if (user == "Dave") continue;
 
     console.log(greetUser(user));
@@ -342,11 +368,39 @@ function showGreetingExceptToDave(user) {
 }
 
 function sayHelloToEveryoneExceptDave(users) {
-  for (user in users) {
+  for (i = 0; i < users.length; i++) {
     showGreetingExceptToDave(user);
   }
 }
 ```
+
+#### But did we solve the right problem?
+
+Actually, the code above greet everyone except Dave.
+
+There is a better way to think about this problem, which will clean up the code nicely.
+
+We want to divide our users into two groups:
+
+- Those we want to greet
+- Those we don't (Dave)
+
+We can do this using a filter operation:
+
+```javascript
+function showGreeting(user) {
+  console.log(greetUser(user));
+}
+
+function sayHelloToEveryoneExceptDave(users) {
+  const usersToGreet
+    = users.filter( user => user != "Dave");
+
+  usersToGreet.forEach(user => showGreeting(user););
+}
+```
+
+That separates the concerns of greeting people we want to grret from the concern of finding out who those people are. A cleaner approach this time, not just cleaner syntax for the code.
 
 Sorry, Dave. At least you got some clean code in the end.
 
@@ -369,8 +423,6 @@ Reduce Scope
 
 - Why
 - Example
-
-Avoid continue
 
 Eliminate globals
 
