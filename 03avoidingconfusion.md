@@ -66,38 +66,6 @@ Make sure that you can understand what to expect by the names and signatures of 
 
 > **Names are so important. All we have are names**
 
-## Prefer switch to if-else-if chains
-
-```javascript
-if (operation == "add") {
-  add();
-} else if (operation == "subtract") {
-  subtract();
-} else if (operation == "multiply") {
-  multiply();
-}
-```
-
-Can be simplified to:
-
-```javascript
-switch (operation) {
-  case "add":
-    add();
-    break;
-
-  case "subtract":
-    subtract();
-    break;
-
-  case "multiply":
-    multiply();
-    break;
-}
-```
-
-This has a more straightforward flow.
-
 ## Avoid global anything
 
 Really.
@@ -308,6 +276,38 @@ Explicit constraints like this greatly simplifies reading code. Whenever we see 
 > Use read-only wherever possible.
 
 This has an even bigger effect in concurrent programs. They are outside the scope of this guide.
+
+## Prefer switch to if-else-if chains
+
+```javascript
+if (operation == "add") {
+  add();
+} else if (operation == "subtract") {
+  subtract();
+} else if (operation == "multiply") {
+  multiply();
+}
+```
+
+Can be simplified to:
+
+```javascript
+switch (operation) {
+  case "add":
+    add();
+    break;
+
+  case "subtract":
+    subtract();
+    break;
+
+  case "multiply":
+    multiply();
+    break;
+}
+```
+
+This has a more straightforward flow.
 
 # Moving on
 
