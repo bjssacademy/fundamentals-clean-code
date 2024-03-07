@@ -14,7 +14,7 @@ It is generally much shorter and cheaper than any other book on this subject, so
 
 ![JS icon](/images/javascript_icon_130900.png)
 
-_Code examples in JavaScript_
+_Code examples in JavaScript - principles apply to all languages_
 
 ## [What is Clean Code? >>](/intro.md)
 
