@@ -12,10 +12,10 @@ This practical guide explains the principles behind clean code, provides some ha
 
 It is generally much shorter and cheaper than any other book on this subject, so there's that.
 
-Let's dive right in, by clicking the link:
+![JS icon](/images/javascript_icon_130900.png)
+
+_Code examples in JavaScript_
 
 ## [What is Clean Code? >>](/intro.md)
 
-![JS icon](/images/javascript_icon_130900.png)
-
-Code examples in JavaScript
+Let's dive right in, by clicking the link
