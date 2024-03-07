@@ -16,4 +16,6 @@ Let's dive right in, by clicking the link:
 
 ## [What is Clean Code? >>](/intro.md)
 
-(All examples are in JavaScript in this version)
+![JS icon](/images/javascript_icon_130900.png)
+
+Code examples in JavaScript
