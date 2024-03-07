@@ -402,12 +402,30 @@ There are two kinds of complexity in any problem:
 
 > **Accidental complexity is the enemy of clean code**.
 
+This is the difference between:
+
+```javascript
+function trackAircraft(radarSamples, previousTrack) {
+  // ... this is probably going to be hard
+  //
+  // so make sure to decompose into simpler sub-steps!
+}
+```
+
+and:
+
+```javascript
+function calculateFinalPrice(shoppingBasket) {
+  // This really should not be difficult!
+}
+```
+
 To avoid accidental complexity:
 
 - Use the simplest algorithm
 - Be explicit about every step taken
-- Use the fewest elements
-- Use the most widely understood syntax
+- Use the fewest programmaing elements
+- Prefer the most widely understood syntax
 
 ![Say no to accidental complexity](/images/accidental-essential.jpg)
 
