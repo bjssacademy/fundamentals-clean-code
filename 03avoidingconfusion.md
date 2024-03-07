@@ -158,10 +158,10 @@ function calculateTotal() {
 
 It's a short piece of code, but it's tricky to analyse:
 
-- the function is lcoked-in to reading from the global `prices` array
+- the function is locked-in to reading from the global `prices` array. That's a shame in itself. The algorithm should be reusable.
 - global variable `total` will magically change once we call `calculateTotal()`
-- the loop index `i` used to pull prices out of the array is defined quite far away from where it is used. In larger code, we would have to mentally track what state i was in.
-- We assign the value of i after the loop ends to a global `itemsCounted`. That will work (sort of) as a way of counting how many items we included, but is fragile. If we added another loop in the future, and copy-pasted the loop in this code block, `i` would mean something else. Would we spot that?
+- the loop index `i` used to pull prices out of the array is defined quite far away from where it is used. In larger code, we would have to mentally track what state `i` was in.
+- We assign the value of `i` after the loop ends to a global `itemsCounted`. That will work (sort of) as a way of counting how many items we included, but is fragile. If we added another loop in the future, and copy-pasted the loop in this code block, `i` would mean something else. Would we spot that?
 
 The better approach is to reduce scope to the shortest possible for all the things:
 
