@@ -393,6 +393,32 @@ Always prefer these cleaner approaches. It pays to think around the problem, rat
 
 Sorry, Dave. At least you got some clean code in the end.
 
+## KISS: Avoid accidental complexity
+
+There are two kinds of complexity in any problem:
+
+- _Essential complexity_. The problem itself is complex. Example: Radar signal processing
+- _Accidental Complexity_. The problem is simple, yet our chosen implementation is hard to understand.
+
+**Accidental complexity is the enemy of clean code**.
+
+To avoid accidental complexity:
+
+- Use the simplest algorithm
+- Be explicit about every step taken
+- Use the fewest elements
+- Use the most widely understood syntax
+
+Note that problems with high essential complexity are just as prone to having extra _accidental_ complexity added. As we break down our complex problem into simpler sub-steps, work towards making each step as simple as possible.
+
+This is traditionally known as the **KISS** principle - which always was _Keep It Simple, Stupid_.
+
+We could equally say _Keep It Simple, Seriously_, should you prefer a modernised version of your final S.
+
+> KISS: Simplify, simplify, simplify.
+
+Always be on guard. Accidentally complex will torpedo agility like nothing else.
+
 # Next
 
 Now that we are busy building code blocks that are small, yet perfectly formed, let's look at another problem area: Confusing Code.

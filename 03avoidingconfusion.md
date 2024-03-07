@@ -253,6 +253,51 @@ The calling code is then told explicitly that there were - or were not - results
 
 > Prefer explicit code that clearly describes what it does
 
+## Avoid reusing variables
+
+Many languages make it easy to re-use a variable for different purposes.
+
+> Just because we _can_ does not mean we _should_
+
+This adds to our cognitive load, as we must mentally track what the variable represents _at every line it occurs_.
+
+```javascript
+function getUserDescriptionById(i) {
+  const i = fetchUserProfileById(i);
+
+  i = i.description.json;
+
+  i = "Describes themselves as " + JSON.parse(i).short;
+
+  return i;
+}
+```
+
+Good luck working with such code.
+
+It would be just as easy to write this:
+
+```javascript
+function getUserDescriptionById(userId) {
+  const profile = fetchUserProfileById(userId);
+
+  const descriptionJson = profile.description.json;
+
+  const shortDescriptionText = JSON.parse(descriptionJson).short;
+
+  return "Describes themselves as " + shortDescriptionText;
+}
+```
+
+Which avoids that mental juggling, making the code simpler and safer to work with. The translation steps are now clear.
+
+This problem gets worse as:
+
+- The scope of that reused variable gets larger: global being the worst
+- Different data types get mixed in
+- Subtle type conversion side-effects are relied on
+- The variable name becomes more disconnected from what it is representing at that time
+
 ## Prefer read-only
 
 What's the difference between these two lines as a reader of code:

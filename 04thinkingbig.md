@@ -4,7 +4,12 @@ Structureing bigger apps
 
 ## Separation of concerns
 
-srp - change together
+DRY
+
+- Change in one place
+- Same abstraction only
+
+SRP - One reason to change
 
 example n-tier, discuss hexarch briefly
 
