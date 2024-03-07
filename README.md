@@ -15,3 +15,5 @@ It is generally much shorter and cheaper than any other book on this subject, so
 Let's dive right in, by clicking the link:
 
 ## [What is Clean Code? >>](/intro.md)
+
+(All examples are in JavaScript in this version)
