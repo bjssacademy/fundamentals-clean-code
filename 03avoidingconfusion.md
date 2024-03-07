@@ -223,6 +223,12 @@ function calculateDiscount(customerId) {
 }
 ```
 
+The code above treats all customers with a `customerId` of 10000 or more as VIP customers, and gives them a VIP discount. This concept should not be tied in anyway to customerId, which should serve only to uniquely identify the customer - _not encode information about them_. That should be done separately.
+
+> One real system did this and grew past 10,000 cutomers. New customers were delighted to receive VIP discounts!
+>
+> The CFO of the company was rather less pleased by this.
+
 It is better to pass in a stronger data structure, that explicitly mentions if the customer is a VIP or not:
 
 ```javascript
@@ -256,9 +262,9 @@ function getUserProfileById( userId ) {
 }
 ```
 
-The idea is we're going to pull some user profile blurb from a SQL database (very approximate coding here to illustrate). If we don't have anything for that userId, we'll get nothing back from the database. We will report to the caller of the function that nothing is available by returning `null`.
+The idea is we're going to pull some user profile blurb from a SQL database (very approximate coding here to illustrate). If we don't have anything for that `userId`, we'll get nothing back from the database. We will report to the caller of the function that nothing is available by returning `null`.
 
-That's hybrid coupling. One piece of information can mean two things - either 'here are your results' or 'there were no results'.
+That's hybrid coupling, with a false beard. One piece of information can mean two things - either 'here are your results' or 'there were no results'.
 
 It's always better to avoid this.
 
@@ -293,9 +299,11 @@ and
 const maximumSize = 500;
 ```
 
-The second one is a read-only variable. The `const` keyword means that the value cannot change.
+The first definition might be changed elsewhere. Maybe the programmer intended it to change; maybe not. We cannot tell from this line alone what they were thinking.
 
-That greatly simplifies reading code. Whenever we see that variable name, we know what its value will be.
+The second definition explicitly is a read-only variable. The `const` keyword means that the value cannot change. We can tell that from only this line of code.
+
+Explicit constraints like this greatly simplifies reading code. Whenever we see that variable name, we know what its value will be.
 
 > Use read-only wherever possible.
 
@@ -303,6 +311,6 @@ This has an even bigger effect in concurrent programs. They are outside the scop
 
 # Moving on
 
-For the final part of this guide, let's look at the bigger pciture. How do we grow a larger application out of small pieces?
+For the final part of this guide, let's look at the bigger picture. How do we grow a larger application out of small pieces?
 
 ##[Thinking Big >>](/04thinkingbig.md)
