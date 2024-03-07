@@ -313,4 +313,4 @@ This has a more straightforward flow.
 
 For the final part of this guide, let's look at the bigger picture. How do we grow a larger application out of small pieces?
 
-##[Thinking Big >>](/04thinkingbig.md)
+## [Thinking Big >>](/04thinkingbig.md)
