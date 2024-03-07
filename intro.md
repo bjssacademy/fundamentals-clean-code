@@ -1,10 +1,10 @@
-# Introduction to Clean Code
+# What is Clean Code?
 
 You've doubtless heard about Clean Code, if only because it has become an industry buzzword.
 
 But what is it? Do we need it? How do we write it?
 
-## What is clean code?
+## Take some 'quick and dirty' code ...
 
 With code, there are many ways of implementing a feature. You've probably done this yourself: taken a feature, and written some code that works. Perhaps like this function:
 

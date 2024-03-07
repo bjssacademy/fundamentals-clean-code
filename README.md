@@ -6,6 +6,8 @@ We often talk about it. It has become a bit of an industry buzzword. We look for
 
 _But what is it?_
 
+![Even the cat writes better code](/images/cleaning.jpg)
+
 This short guide explains the principles behind clean code, provides some handy cleaning recipes, and hopefully presents code examples showing the benefits.
 
 It is generally much shorter and cheaper than any other book on this subject, so there's that.
