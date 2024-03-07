@@ -397,10 +397,10 @@ Sorry, Dave. At least you got some clean code in the end.
 
 There are two kinds of complexity in any problem:
 
-- _Essential complexity_. The problem itself is complex. Example: Radar signal processing
-- _Accidental Complexity_. The problem is simple, yet our chosen implementation is hard to understand.
+- _**Essential** complexity_. The problem itself is complex. Example: Radar signal processing
+- _**Accidental** Complexity_. The problem is simple, yet our chosen implementation is hard to understand.
 
-**Accidental complexity is the enemy of clean code**.
+> **Accidental complexity is the enemy of clean code**.
 
 To avoid accidental complexity:
 
@@ -408,6 +408,8 @@ To avoid accidental complexity:
 - Be explicit about every step taken
 - Use the fewest elements
 - Use the most widely understood syntax
+
+![Say no to accidental complexity](/images/accidental-essential.jpg)
 
 Note that problems with high essential complexity are just as prone to having extra _accidental_ complexity added. As we break down our complex problem into simpler sub-steps, work towards making each step as simple as possible.
 
