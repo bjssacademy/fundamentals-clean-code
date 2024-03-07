@@ -58,6 +58,36 @@ const maximumNumberOfStudents = 36;
 
 This is much more useful to future readers.
 
+### Common trap: useless names
+
+A smorgasbord for your delight and delectation:
+
+```javascript
+let tmp = "dogbanana"; // temporary what?
+
+const number = 6; // Yes, I can see that is indeed a number, cheers
+
+let length = array.length // length? Like in miles? How many *of what*?
+
+function process(input) {
+   // I got a two-for-one name fail right there
+}
+
+// Words that mean many things to many people, and yet nothing...
+
+const controller = ...
+
+let manager = ...
+
+const service = ...
+
+const handler = ...
+
+function handle( event ) {
+  // Well, that cleared things up nicely, cheers
+}
+```
+
 ## Naming code blocks - functions and methods
 
 All programs feature blocks of code.
