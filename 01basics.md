@@ -125,7 +125,7 @@ Our improved function now forms an _abstraction_. We have a higher-level buildin
 Looking at the call site - where the function is called - this becomes even more obvious:
 
 ```javascript
-greetUser("Alan");
+greetUser("alan");
 ```
 
 This is now more than a function. We have introduced terms from our problem domain into the code. The code is beginning to speak the language of the _problem_ more strongly than that of the _implementation_.
@@ -150,7 +150,7 @@ Thinking up good names is hard (...that again...).
 It's tempting to give up on thinking about _why_ we would want to call that function, and instead just describe _how_ it works:
 
 ```javascript
-returnWordHelloAppendParameter("Alan");
+returnWordHelloAppendParameter("alan");
 ```
 
 Now, this does form a pretty good description of how our function works. But obfuscates what our function _is there for_.
@@ -158,7 +158,7 @@ Now, this does form a pretty good description of how our function works. But obf
 For callers of the function, we get more useful information from
 
 ```javascript
-greetUser("Alan");
+const greeting = greetUser("alan");
 ```
 
 Focus on what functions do, in the context of why we would want to call them.
