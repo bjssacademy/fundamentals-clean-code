@@ -165,4 +165,4 @@ With fewer defects and shorter times to understand the code, Clean code gives us
 
 Let's look at the low-hanging fruit of how to write clean code
 
-## [Basics >>](/01basics.md)
+## [Clean Code Basics >>](/01basics.md)
