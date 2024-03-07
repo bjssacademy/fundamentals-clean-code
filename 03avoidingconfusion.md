@@ -78,7 +78,7 @@ Avoid global variables in much the same way you avoid eating dog excrement, sat 
 
 Global variables have the advantage that any piece of code, anywhere in the codebase can read and modify those variables. That means you don't have to think about which pieces of code can access them. They all can.
 
-Global variables have the significant disadvantage that any piece of code, anywhere in the codebase can read and modify those variables. That means you don't have to think about which pieces of code can access them. They all can.
+Global variables have the _significant disadvantage_ that any piece of code, anywhere in the codebase can read and modify those variables. That means you _cannot reason_ about which pieces of code can access them. They all can.
 
 Global anything will connect multiple pieces of code together with an implicit connection. It is not generally possible to skim read the code and understand which pieces are connected.
 
