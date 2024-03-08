@@ -391,7 +391,77 @@ That separates the concerns of showing a greeting from the concern of finding ou
 
 Always prefer these cleaner approaches. It pays to think around the problem, rather than just throw keywords like `continue` at it.
 
-Sorry, Dave. At least you got some clean code in the end.
+By the way, sorry Dave. At least you got some clean code in the end.
+
+### Prefer foreach
+
+The most common case of using loops is to _iterate over elemnts_ in an array (or other collection).
+
+The way we normally start out is to use a three-part counting loop, like so:
+
+```javascript
+function calculateTotal( prices ) {
+  let total = 0;
+
+  for (int i=0; i < prices.length; i++ ) {
+    const price = prices[i];
+    total += price;
+  }
+
+  return total;
+}
+```
+
+That's pretty simple. But it does have _accidental complexity_:
+
+- a _loop index_ variable `i`
+- remember arrays start at index [0] (in this language, not all languages...)
+- length check
+- possible off-by-one error
+- increment `i`
+- Be vaguely aware of the maximum size of `i`
+- If `i` was floating point, be aware of when incrementing i by one stops working due to 53 bit mantissa precision of [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754) floating point numbers
+
+Now, that sounds like a hassle to me. And we _don't even care_ about having that index variable, really. It only exists so we can iterate over array elements.
+
+Can we be more direct about that intention?
+
+```javascript
+function calculateTotal(prices) {
+  let total = 0;
+
+  prices.forEach((price) => (total += price));
+
+  return total;
+}
+```
+
+Yes. We can. Prefer `forEach` over counting loops
+
+#### Consider reduce()
+
+In the spirit of getting rid of as much as we can, we could use the `reduce()` method on arrays:
+
+```javascript
+function calculateTotal(prices) {
+  const addPrices = (total, price) => total + price;
+
+  return prices.reduce(addPrices);
+}
+```
+
+This gets rid of the loop entirely, by hiding it inside the `reduce()` method. There are fewer moving parts and less to go wrong.
+
+It opens the interesting trade-off:
+
+- less accidental complexity
+- possibly unfamiliar syntax
+
+In working groups, you'll need to agree on which way to jump.
+
+> Me? I say always avoid accidental complexity wherever you can.
+
+This leads - and very nicely, I thought - on to _what is accidental cxomplexity?_
 
 ## KISS: Avoid accidental complexity
 
