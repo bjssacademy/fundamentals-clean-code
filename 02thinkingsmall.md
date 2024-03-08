@@ -461,7 +461,7 @@ In working groups, you'll need to agree on which way to jump.
 
 > Me? I say always avoid accidental complexity wherever you can.
 
-This leads - and very nicely, I thought - on to _what is accidental cxomplexity?_
+This leads - and very nicely, I thought - on to _what is accidental complexity?_
 
 ## KISS: Avoid accidental complexity
 
