@@ -1,6 +1,6 @@
 # What is Clean Code?
 
-You've doubtless heard about Clean Code, if only because it has become an industry buzzword.
+You've doubtless heard about Clean Code, if only because it has become an industry buzzword. We certainly talk about it _a lot_ (Ed: ad nauseam, actually) in Academy.
 
 But what is it? Do we need it? How do we write it?
 
@@ -21,6 +21,8 @@ Hurray! We did a thing! It works! Look at its elegant optimisations! _Aren't we 
 
 Ah, yes. The unbridled optimism of that first cut of code.
 
+### Some time later ...
+
 > _Wavy lines ... time passes ..._
 
 Only next week, we need to implement a new feature from Mx. Customer.
@@ -29,11 +31,13 @@ We need to make the function return the word "dog" for number values divisible b
 
 **And it is an utter, utter nightmare to add**
 
-Try it ;)
+Try it ;) That code will fight back.
 
-And that's just one line of code, in one function, in a codebase on an unloved planet on the Western spiral arm of the galaxy.
+![we can fix the code later, right?](/images/fix-it-later.png)
 
-Imagine doing hundreds of similar things each week - with millions of lines of code, none of which you have ever seen before.
+And that's just one line of code. In one function. In a codebase on an unloved planet, in the unfashionable Western spiral arm of the galaxy.
+
+Imagine doing hundreds of similar things each week - but with millions of lines of code you've never seen before.
 
 ## Tell us it doesn't have to be this way!
 
@@ -43,9 +47,17 @@ So we must _decide_ to be part of the solution.
 
 ![BJSS Needs clean code!](/images/needs-you-clean-coder.jpg)
 
-Humans are not magic at reading code. Readable code does not write itself. It needs care. At each of the trade-off points where we decide to go with approach A or approach B, we must choose wisely.
+Humans are not magic at reading code. It's not like we are a failure because we struggle to read hard-to-read code. Some code is easier to read than others.
 
-We must first know that alternatives A and B are even possible. That's what this BJSS Academy guide is all about.
+The trouble is that readable code does not write itself. It needs care taken. By every one of us.
+
+At each of the trade-off points where we decide to go with approach A or approach B, we must choose wisely.
+
+We must first know that alternatives A and B are even possible.
+
+That's what this BJSS Academy guide is all about.
+
+### Cleaning our example code
 
 Here's one possibility for our original function `fb()`:
 
@@ -80,6 +92,8 @@ function toFizzBuzzText(n) {
 ```
 
 Now, this is longer. It's more wordy. It has more lines of code. It takes up more space in the source file.
+
+#### Towards simpler code
 
 But it is simpler.
 
