@@ -125,10 +125,12 @@ Our improved function now forms an _abstraction_. We have a higher-level buildin
 Looking at the call site - where the function is called - this becomes even more obvious:
 
 ```javascript
-greetUser("alan");
+const greeting = greetUser("alan");
 ```
 
 This is now more than a function. We have introduced terms from our problem domain into the code. The code is beginning to speak the language of the _problem_ more strongly than that of the _implementation_.
+
+#### Abstractions - commit to what, defer how
 
 We are describing **what** is being solved over **how**.
 
@@ -137,13 +139,20 @@ Ultimately, this leads to us creating a _Domain Specific Language (DSL)_. The mo
 A further benefit of such abstractions is it frees us from reading the inside of the function.
 If we can trust the code we read, we don't need to understand the details of how it works. We can simply use it.
 
+This has two further benefits:
+
+- easier to change the implementation without changing everywhere that calls it
+- we can create a _library_ of such functions. There, we don't see the source code. The function usage must be clear.
+
+### Naming rule for functions
+
 This leads to our naming rule for functions:
 
 > **Name functions for what they do**
 
 A function name explains why we would call that function.
 
-### Common trap: naming by implementation details
+#### Common trap: naming by implementation details
 
 Thinking up good names is hard (...that again...).
 
