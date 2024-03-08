@@ -507,7 +507,7 @@ We could equally say _Keep It Simple, Seriously_, should you prefer a modernised
 
 > KISS: Simplify, simplify, simplify.
 
-Always be on guard. Accidentally complex will torpedo agility like nothing else.
+Always be on guard. Accidental complexity will torpedo agility like nothing else.
 
 # Next
 
