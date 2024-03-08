@@ -444,9 +444,9 @@ In the spirit of getting rid of as much as we can, we could use the `reduce()` m
 
 ```javascript
 function calculateTotal(prices) {
-  const addPrices = (total, price) => total + price;
+  const addPricesReducer = (total, price) => total + price;
 
-  return prices.reduce(addPrices);
+  return prices.reduce(addPricesReducer);
 }
 ```
 
