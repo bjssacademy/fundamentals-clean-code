@@ -427,7 +427,7 @@ To avoid accidental complexity:
 - Use the fewest programmaing elements
 - Prefer the most widely understood syntax
 
-![Say no to accidental complexity](/images/accidental-essential.jpg)
+![Say no to accidental complexity](/images/complexity.jpg)
 
 Note that problems with high essential complexity are just as prone to having extra _accidental_ complexity added. As we break down our complex problem into simpler sub-steps, work towards making each step as simple as possible.
 
