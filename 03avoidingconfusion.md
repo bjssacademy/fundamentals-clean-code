@@ -126,6 +126,7 @@ function calculateTotal() {
 
 It's a short piece of code, but it's tricky to analyse:
 
+- If you call it twice, the result (in `total`) will be different
 - the function is locked-in to reading from the global `prices` array. That's a shame in itself. The algorithm should be reusable.
 - global variable `total` will magically change once we call `calculateTotal()`
 - the loop index `i` used to pull prices out of the array is defined quite far away from where it is used. In larger code, we would have to mentally track what state `i` was in.
@@ -172,7 +173,120 @@ More generally, code is easiest to read when it is direct. The comparison above 
 
 Anything where you are relying on something that coincidentally happens to be useful to you, that's fragile code right there.
 
-The coinncidence might be stopped in future, somewhere else. Even if it remains, it's very hard to reason about because it is _hidden_.
+The coincidence might be stopped in future, somewhere else. Even if it remains, it's very hard to reason about because it is _hidden_.
+
+We saw this happen in the previous code example. The following code relies on the side effect of total being set to zero before we call the function:
+
+```javascript
+var total = 0;
+
+function calculateTotal(prices) {
+  for (let i = 0; i < prices.length; i++) {
+    total += prices[i];
+  }
+
+  return total;
+}
+```
+
+There is no guarantee that `total` will be set to zero when we call the function. This would make the total _add on_ to whatever was there, making the result meaningless.
+
+Can we do better? Easily:
+
+```javascript
+function calculateTotal(prices) {
+  let total = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    total += prices[i];
+  }
+
+  return total;
+}
+```
+
+This code doesn't rely on total being zero before we call the function.
+
+The second version is much safer to work with.
+
+## Designing-out errors
+
+It's possible to write code that has obscure pre-conditions that must be met before we use it. This leads to people using the function incorrectly _because it is possible to do so_.
+
+We should design to avoid this. This is what _designing-out errors_ means.
+
+Take a simple "add two numbers together function". What could possibly go wrong?
+
+```javascript
+function addNumbers(a, b) {
+  return a + b;
+}
+```
+
+All goes well until we call it like this:
+
+```javascript
+const sum = addNumbers("1" + "1");
+```
+
+Where we prove that one plus one equals eleven.
+
+The problem here is that it is _possible_ to use the code incorrectly. Therefore, somebody at some point _will_.
+
+Writing unit tests helps - at least we can see _executable examples_ of how we intend the code to be used.
+
+> See our guide to Test-Driven Development:
+>
+> [BJSS Academy Guide to Advanced TDD](https://github.com/bjssacademy/advanced-tdd)
+
+But unit tests do not fix the root cause. The root cause is that we can pass values that are not numbers into `addNumbers()` and there is nothing to prevent that.
+
+In a typed language such as Go, we can write
+
+```golang
+func addNumbers( a int, b int ) int {
+  return a + b;
+}
+```
+
+and this problem simply can never occur. Attempting to call this with strings will not compile. A decent IDE will underline the call with a red squiggle and say that you cannot pass strings into this function.
+
+### Defensive programming
+
+JavaScript, bless it, does not offer the support of _strong static types_. That's why Microsoft invented _TYpescript_, which is preferred.
+
+> See our guide on TypeScript Fundamentals:
+>
+> [BJSS Academy Guide to TypeScript Fundamentals](https://github.com/bjssacademy/fundamentals-ts)
+
+The best we could do using JavaScript is to adopt _defensive programming_, like this:
+
+```javascript
+function validateNumber(object) {
+  if (typeof object === "number") {
+    return;
+  }
+
+  throw "not a number";
+}
+
+function addNumbers(a, b) {
+  validateNumber(a);
+  validateNumber(b);
+
+  return a + b;
+}
+```
+
+The guard clauses here are an explae of _validator functions_. They will throw an error, rippling up the call stack until something catches it and does something about it.
+
+This will cause the function to fail early and predictably - rather than late and confusingly.
+
+**Designing-out errors is far superior to defensive programming**. Use it whenever you can.
+
+> Design out errors when you can
+>
+> Use Defensive Programming when you must
 
 ## Avoid hybrid coupling
 
@@ -359,3 +473,7 @@ This has a more straightforward flow.
 For the final part of this guide, let's look at the bigger picture. How do we grow a larger application out of small pieces?
 
 ## [Thinking Big >>](/04thinkingbig.md)
+
+```
+
+```

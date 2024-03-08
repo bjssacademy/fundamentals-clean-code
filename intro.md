@@ -156,6 +156,8 @@ With fewer defects and shorter times to understand the code, Clean code gives us
 ## Benefits of clean code
 
 - Code explains the problem being solved in human language
+- Enables agility - ability to change code safely and rapidly
+- Shared understanding across team
 - Quicker to understand
 - Cheaper to work with
 - Defects are more obvious to spot
