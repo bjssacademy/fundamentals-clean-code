@@ -106,11 +106,16 @@ Whatever broader structure we choose, we aim to place all logic related to html 
 
 #### Logic component
 
+The logic is the part that implements business rules in the server-side code.
 This will end up fetching raw data from whichever sources it comes from. Typically a database, or web services. Perhpas reference data from JSON files.
 
 This component _does not_ directly access those sources. Code here merely _requests_ data through a suitable abstraction. If we need some user profile data, our abstraction might be `fetchUserProfile( userId )`. We would not specify (nor restrict) where this profile data came from.
 
-The logic is the part that implements business rules in the server-side, or complex presentation rules in the UI.
+This is the _low coupling_ part. The logic component depends on an abstraction that only says what we want (fetch a user profile), but has no need to know _how_ this gets done. This leads to the concept of swappable components. The logic does not need to change even if we swap out a data store. That itself leads to some benefits to testing code.
+
+> Read about those testing benefits here: [BJSS Academy Guide to Advanced TDD](https://github.com/bjssacademy/advanced-tdd)
+
+We have similar separation of concerns in front-end UI code. We have UI components, presentation logic that maps raw data to the UI, and fetching data from our application.
 
 #### Data component
 
@@ -124,7 +129,7 @@ We might see:
 
 ## Modularity
 
-The above splits are exmaples of modularity, which is also known as _Information Hiding_.
+The above splits are examples of modularity, also known as _Information Hiding_.
 
 Information Hiding was first described by David L. Parnas in 1968, and was a leap forward for managing complexity.
 
@@ -138,6 +143,10 @@ A module should:
 This was a foundation of Object-Oriented Programming, and also of every module or package system that we see today.
 
 It is "Don't eat the whole elephant" in code structure form.
+
+> Hide detail. Expose a minimal, complete abstraction
+
+These ideas combine to allow us to eliminate unnecessary duplication of code. The guideline for this is often known as DRY.
 
 ## Don't Repeat Yourself (DRY) Principle
 
@@ -213,9 +222,9 @@ Future readers will spend _a very long time_ trying to assess if the two _simila
 
 ### Apply DRY to solve this
 
-The DRY principle reminds us that we cause problems by repeating information in multiple places. It doesn't matter what the information is. We need a _single source of truth_ for all information. That aids understanding as well as ensuring changes can be made safely in the future.
+The DRY principle solves problems caused by repeating information. It doesn't matter what the information is. We need a _single source of truth_ for all information. That aids understanding. It enables future changes to be made safely.
 
-You can see DRY as an extension to SRP. Not only must things that change together be near to each other, but things that _are actually the same_ should be the represented by the same code.
+We can see DRY as an extension to SRP. Things that change together should be near to each other. Things that _are actually the same idea_ should be the represented by the same code. We put that code in one place and re-use it.
 
 ## Dependency Inversion Principle
 
