@@ -29,13 +29,23 @@ The **Single Responsibility Principle** says that a software component should co
 
 All the pieces needed for a _single repsonibility_ of the code should be in a single component. When we need to change anything, we make changes in one place. We also protect the rest of the codebase from having changes scattered about.
 
+### Too many responsibilities
+
 A counter-example would be a function that does three things:
 
 - Opens a database connection
-- reads some database data and applies some logic
-- generates some html based on the data and outputs it
+- Reads some database data and applies some logic
+- Generates a web page using API calls
 
-If we wrote all of those responsibilities into the same function, chances are any change to the database layout would end up affecting the logic and html code.
+If we wrote all of those responsibilities into the same function, it would look like this at the design level:
+
+![Too many repsonsibilities](/images/too-many-responsibilities.png)
+
+**Don't do this**.
+
+Any change to any of those things would force a lot of rework and retest.
+
+### Separation of responsibilities
 
 The fix is to split out the three responsibilities into three separate components:
 
@@ -43,91 +53,40 @@ The fix is to split out the three responsibilities into three separate component
 - Logic
 - HTML
 
-Indeed this is very common, and a driver towards _three tier architecture_ and _hexagonal architecture_.
+![Separation of responsibilities](/images/separated-responsibilities.png)
 
-SRP is a restatement of "maximise cohesion". _Cohesion_ is a technical term with a counterpat _coupling_. Let's take a look at those importnat ideas next.
+**Do this**.
+
+A change to an SQL query will have _no effect whatsoever_ on the business rules, REST API or user interface. Those things might need to include new features, but the separation of concerns means we can make changes at some other time.
+
+This approach is very common, and a driver towards _three tier architecture_ and _hexagonal architecture_.
 
 ### Coupling and Cohesion
 
 The tools we use to manage that all relate to one simple idea:
 
 > Things that belong together are grouped together
+>
+> Things that don't belong together are split apart
+
+SRP is a restatement of "maximise cohesion".
 
 There are two technical terms to know: _coupling_ and _cohesion_.
 
-- **Coupling** Components are _coupled_ if a change in one mandates a change in the other
+- **Coupling** Components are _coupled_ if a change in one _forces_ a change in the other
 - **Cohesion** Components are _cohesive_ if they are parts of solving the same problem
 
 ![Low coupling,  high cohesion](/images/coupling-cohesion.png)
 
-A, B and C are all small software components that solve part of the same problem. They communicate with each other in well-defined ways.
+> GOAL: **LOW** coupling, **HIGH** Cohesion
 
-D and E are small components that are part of solving a _different_ problem. D and E communicate with each other.
-
-ABC and DE are contained in larger self-contained modules.
-
-The two larger modules talk to each other infrequently at a higher level.
-
-> Aim for Low coupling, High Cohesion
-
-### Say again, in English?
-
-- Things that change together belong together
-- Things that don't belong apart
-- Things apart should know nothing about how the others work inside
-- Things apart communicate the bare minimum to get the job done
-
-That's most of software design, object orientation, microservice deisgn and TDD summed up.
-
-But the industry can't normally make things this simple, otherwise no-one would get paid ...
-
-### Database, logic and html example
-
-In our fictional three components, we should aim for high cohesiveness inside each component, and low coupling between components.
-
-How might that look?
-
-#### HTML Component
-
-In this case, a component might be any of the following stuctural patterns:
-
-- A set of functions inside a JS `module` that we can import
-- A number of methods on a `class`
-- A group of React components
-- in other languages, such as Go or Java, a `package`
-
-Whatever broader structure we choose, we aim to place all logic related to html together:
-
-- html and css code
-- react components, if used
-- html templates to power a templating engine (eg handlebars)
-- presentation logic, things such as date formatters (arguable this can be separate as well!)
-- tests for these components in isolation
-
-#### Logic component
-
-The logic is the part that implements business rules in the server-side code.
-This will end up fetching raw data from whichever sources it comes from. Typically a database, or web services. Perhpas reference data from JSON files.
-
-This component _does not_ directly access those sources. Code here merely _requests_ data through a suitable abstraction. If we need some user profile data, our abstraction might be `fetchUserProfile( userId )`. We would not specify (nor restrict) where this profile data came from.
-
-This is the _low coupling_ part. The logic component depends on an abstraction that only says what we want (fetch a user profile), but has no need to know _how_ this gets done. This leads to the concept of swappable components. The logic does not need to change even if we swap out a data store. That itself leads to some benefits to testing code.
-
-> Read about those testing benefits here: [BJSS Academy Guide to Advanced TDD](https://github.com/bjssacademy/advanced-tdd)
-
-We have similar separation of concerns in front-end UI code. We have UI components, presentation logic that maps raw data to the UI, and fetching data from our application.
-
-#### Data component
-
-Our logic component requested data using an abstraction. This is where stuff gets real and the concrete code lives to actually get the data.
-
-We might see:
-
-- Database connections, queries (perhaps in SQL), transactions, configurations
-- HTTP calls to web services
-- Locally cached file data, as read-only reference data
+That simple rule covers most of software design, object orientation, microservices and TDD.
 
 ## Modularity
+
+> Hide as much detail as possible
+>
+> Expose as little interface as possible
 
 The above splits are examples of modularity, also known as _Information Hiding_.
 
@@ -136,9 +95,9 @@ Information Hiding was first described by David L. Parnas in 1968, and was a lea
 A module should:
 
 - Do a job
+- Expose an interface so we can ask for that job to be done
 - Hide the algorithms needed to do that job
 - Hide the data structures meeded to do that job
-- Present a minimal programming interface to ask that the job gets done
 
 This was a foundation of Object-Oriented Programming, and also of every module or package system that we see today.
 
@@ -200,23 +159,21 @@ But even better would be to avoid this in the first place. By having a single so
 
 ### Confusion
 
-Each time we read the number `10`, we learn to reverse-engineer the code around it, and the code that uses it, to figure out which concept it is.
+Each time we read the number `10`, we must reverse-engineer the code to find out what it means.
 
-This is costly, done by every reader as waste and error-prone. Combined with unclear code, we might not fully grasp what the duplicated concept represents.
+This is wasteful of everybody's time.
 
 ### Copy, Paste, Fail
 
-We've used a numeric constant as a typical example.
+We've used a numeric constant as a typical example. The bigger failure is when we copy-paste code around.
 
-The bigger failure is when we copy-paste code around.
+Suppose we copy-paste a code block three times. Every change will now need to be made in those three blocks.
 
-Each duplicate of a code block suffers the same problems. Often, we will not spot every duplicated block, and end up changing only some of them.
+Worse, one of those blocks gets changed _without_ the necessary changes to the other two.
 
-Now our code behaves in exciting, hard to predict ways!
+The code has diverged, and it will be broken in very difficult to spot ways.
 
-Again, our tests should pick this up. But if not, look forward to such fun in debugging it.
-
-We make this even harder once we have modified any of the blocks. Then what used to be duplication _isn't_ anymore. We have ow completely lost track of the related concept.
+> Tests should pick this up - **write them**
 
 Future readers will spend _a very long time_ trying to assess if the two _similar_ blocks of code should be replaced by the _same_ block, or if you _intended_ them to diverge. The code doesn't say. You aren't there to help them.
 
