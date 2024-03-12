@@ -6,6 +6,89 @@ But how can we tame the bigger pieces?
 
 ![thinking big](/images/thinking-big.png)
 
+The first tactic is to _stop repeating information_.
+
+## Don't Repeat Yourself (DRY) Principle
+
+Have you ever encountered code like this:
+
+```javascript
+let total = 0;
+
+for ( let i = 0; i < 10; i ++) (
+    total += getPrice(i);
+)
+
+for ( let i = 0; i < 10; i ++) (
+    sendEmail( updateOrderAccepted(i) );
+)
+```
+
+(_Note:_ artificial example)
+
+**Did you notice the _magic number_ 10 occur twice?**
+
+That `10` represents a fixed number of things that we want add to a total and send an email about.
+
+It is the _same concept_ repeated twice: 10 things. We want to do something with ten things.
+
+Having this number appear more than once causes a few problems.
+
+### Not changing enough
+
+We want to do something to _20_ things now.
+
+We need to change every `10` in the code to `20`.
+
+Sometimes, we miss a few. This breaks the code in confusing ways.
+
+> Tests detect errors like this as soon as possible
+
+### Changing too much
+
+We change _every_ `10` to a `20`. Now the code doesn;t work properly anymore.
+
+Some occurrences of the number `10` represent a _different_ concept. Not 10 things, but a price of 10 pounds, a Customer Number of 10 and so on.
+
+When we swap those unrelated values to 20, we have seriously broken the code.
+
+> Tests detect errors like this as soon as possible
+
+### Confusion
+
+Each time we read the number `10`, we must reverse-engineer the code. Was it the number of things? Or the price? Or the Cusomter Number?
+
+Nobody knows.
+
+This is wasteful of everybody's time.
+
+### Copy, Paste, Fail
+
+We've used a numeric constant as a typical example. The bigger failure is when we copy-paste code around.
+
+Suppose we copy-paste a code block three times. Every change will now need to be made in those three blocks.
+
+Worse, one of those blocks gets changed _without_ the necessary changes to the other two.
+
+The code has diverged, and it will be broken in very difficult to spot ways.
+
+> Tests detect errors like this as soon as possible
+
+Future readers will spend _a very long time_ trying to assess if the two _similar_ blocks of code should be replaced by the _same_ block, or if you _intended_ them to diverge. The code doesn't say. You aren't there to help them.
+
+### Apply DRY to solve this
+
+DRY solves this by providing a single source of truth for each idea.
+
+> Single source of truth **solves the root cause**
+
+The DRY principle solves problems caused by repeating information. We need a _single source of truth_ for all information. That aids understanding. It enables future changes to be made safely.
+
+We can see DRY as an extension to SRP:
+
+- Things that change together should be near to each other
+- Things that _are actually the same idea_ should be the represented by the same code
+
 ## Separation of concerns
 
 The trouble with software is that its complexity grows exponentially with size, unless we limit this.
@@ -104,84 +187,6 @@ This was a foundation of Object-Oriented Programming, and also of every module o
 It is "Don't eat the whole elephant" in code structure form.
 
 > Hide detail. Expose a minimal, complete abstraction
-
-These ideas combine to allow us to eliminate unnecessary duplication of code. The guideline for this is often known as DRY.
-
-## Don't Repeat Yourself (DRY) Principle
-
-Have you ever encountered code like this:
-
-```javascript
-let total = 0;
-
-for ( let i = 0; i < 10; i ++) (
-    total += getPrice(i);
-)
-
-for ( let i = 0; i < 10; i ++) (
-    sendEmail( updateOrderAccepted(i) );
-)
-```
-
-Admittedly it is artificial, and probably better structures exist.
-
-**Did you notice the _magic number_ 10 occur twice?**
-
-That `10` represents a fixed number of things that we want add to a total and send an email about.
-
-It is the _same concept_ repeated twice: 10 things.
-
-This causes a few problems:
-
-### Not changing enough
-
-Suppose we want to now have 20 things instead of 10. We need to find every occurrence of that `10` to change and change it.
-
-We don't always succeed.
-
-Sometimes, our search tools don't reveal every occurrence. Sometimes, human error means we forget to change one.
-
-the software is now **broken**.
-
-Hopefully our unit tests will pick up that we've broken something. But if they don't, then one part of the code is working with 20 things, and the other part with 10. That ain't never gonna work.
-
-> We are writing tests, right? ... _right?_
-
-### Changing too much
-
-The code may also contain occurrences of `10` that have nothing to do with our ten things. It relates to a completely different concept; perhaps the number of days a discount will apply for.
-
-If we change the unrelated 10s, we've broken our software in a new and creative way.
-
-Once again, our unit tests should pick this up.
-
-But even better would be to avoid this in the first place. By having a single source of truth for the separate concepts, we will design-out this class of error.
-
-### Confusion
-
-Each time we read the number `10`, we must reverse-engineer the code to find out what it means.
-
-This is wasteful of everybody's time.
-
-### Copy, Paste, Fail
-
-We've used a numeric constant as a typical example. The bigger failure is when we copy-paste code around.
-
-Suppose we copy-paste a code block three times. Every change will now need to be made in those three blocks.
-
-Worse, one of those blocks gets changed _without_ the necessary changes to the other two.
-
-The code has diverged, and it will be broken in very difficult to spot ways.
-
-> Tests should pick this up - **write them**
-
-Future readers will spend _a very long time_ trying to assess if the two _similar_ blocks of code should be replaced by the _same_ block, or if you _intended_ them to diverge. The code doesn't say. You aren't there to help them.
-
-### Apply DRY to solve this
-
-The DRY principle solves problems caused by repeating information. It doesn't matter what the information is. We need a _single source of truth_ for all information. That aids understanding. It enables future changes to be made safely.
-
-We can see DRY as an extension to SRP. Things that change together should be near to each other. Things that _are actually the same idea_ should be the represented by the same code. We put that code in one place and re-use it.
 
 ## Dependency Inversion Principle
 
