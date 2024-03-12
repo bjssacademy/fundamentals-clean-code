@@ -30,7 +30,9 @@ for ( let i = 0; i < 10; i ++) (
 
 That `10` represents a fixed number of things that we want add to a total and send an email about.
 
-It is the _same concept_ repeated twice: 10 things. We want to do something with ten things.
+It is the _same concept_ repeated twice: A quantity of things. We want to do something with ten things.
+
+![Duplication is bad](/images/duplication.png)
 
 Having this number appear more than once causes a few problems.
 
@@ -46,7 +48,7 @@ Sometimes, we miss a few. This breaks the code in confusing ways.
 
 ### Changing too much
 
-We change _every_ `10` to a `20`. Now the code doesn;t work properly anymore.
+We change _every_ `10` to a `20`. Now the code doesn't work properly anymore.
 
 Some occurrences of the number `10` represent a _different_ concept. Not 10 things, but a price of 10 pounds, a Customer Number of 10 and so on.
 
@@ -56,29 +58,33 @@ When we swap those unrelated values to 20, we have seriously broken the code.
 
 ### Confusion
 
-Each time we read the number `10`, we must reverse-engineer the code. Was it the number of things? Or the price? Or the Cusomter Number?
+Each time we read the number `10`, we must reverse-engineer the code. Was it the number of things? Or the price? Or the Customer Number?
 
-Nobody knows.
+Nobody knows, _because you didn't tell us in the code_.
 
-This is wasteful of everybody's time.
+This is a waste of everybody's time.
 
-### Copy, Paste, Fail
+### Copy + Paste => Fail
 
-We've used a numeric constant as a typical example. The bigger failure is when we copy-paste code around.
+The bigger failure is when we copy-paste code around.
 
-Suppose we copy-paste a code block three times. Every change will now need to be made in those three blocks.
+Suppose we copy-paste a code block three times. Future changes will now need to be made in those three blocks.
 
-Worse, one of those blocks gets changed _without_ the necessary changes to the other two.
+However, this won;t happen. Somebody will fail to update one of the blocks.
 
-The code has diverged, and it will be broken in very difficult to spot ways.
+The code has now diverged and is now broken in very difficult to spot ways.
 
 > Tests detect errors like this as soon as possible
 
-Future readers will spend _a very long time_ trying to assess if the two _similar_ blocks of code should be replaced by the _same_ block, or if you _intended_ them to diverge. The code doesn't say. You aren't there to help them.
+Future readers will spend _a very long time_ trying to figure out if you intended the code to diverge or not.
+
+Nobody knows, _because you didn't tell us in the code_.
 
 ### Apply DRY to solve this
 
 DRY solves this by providing a single source of truth for each idea.
+
+![DRY is good](/images/single-source.png)
 
 > Single source of truth **solves the root cause**
 
