@@ -215,6 +215,108 @@ This is key to minimising disruption caused by changes. This enables agility.
 
 ## Dependency Inversion Principle
 
-depend on abstractions
+What happens when you have one module use another module?
 
-domain specific
+We have a _dependency_.
+
+When module A uses operations provided by module B, we say module A _depends on_ module B.
+
+This is all well and good until module B changes the operations it provides.
+
+All changes to the programming interface of module B will require changes in every other module that uses them.
+
+Oh dear:
+
+- Rework slows delivery and costs money
+- Retest of all affected modules is required
+
+Let's walk through an example of this ckind of change and how we might avoid it.
+
+### Example: Fetching a user profile
+
+Our app wants to fetch some user profile data from a SQL database.
+
+We follow the previous advice and create two modules: `application` and `userdata`.
+
+The modules look like this:
+
+```javascript
+// module: userdata
+function loadUserProfile(sqlQuery) {
+  // passes the SQL query to the database
+  // returns a JavaScript object of profile data
+}
+
+// module: application
+function displayUserDescription(username) {
+  const query = "SELECT * FROM USERS WHERE name='" + username + "'";
+  const profile = loadUserProfile(query);
+
+  console.log(profile.description);
+}
+```
+
+Note:
+
+- function loadUserProfile() accepts a raw SQL query string
+- displayUserDescription() creates the SQL query string
+- There is a SQL injection vulnerability, which we won't talk about
+
+Problem: Changes in module userdata _ripple out_ to module application. Specifically, a change to the table structure of the database must be reflected in the displayUserDescription() function.
+
+#### The problem of leaky abstractions
+
+We said [reviously that a module should _hide_ implementation details and _expose_ an abstraction.
+
+This abstraction is known as _leaky_. It is not really abstract. It directly exposes detailed knowledge about SQL and the database table structure.
+
+Any changes in these details _leak out_ to every other module.
+
+To avoid the required rework, it would be great if we could fix this.
+
+Thankfully, we can. We need to fix that leak. And we do this using _Dependency Inversion_.
+
+### Dependency Inversion
+
+The problem above is that our `application` module depends on 'userdata', causing changes to ripple out.
+
+Instead, we can make _both_ modules `application` and `userdata` depend not on each other, but on a third abstraction.
+
+Revised code might be as simple as this:
+
+```javascript
+// module: userdata
+function loadUserProfile(username) {
+  const query = "SELECT * FROM USERS WHERE name='" + username + "'";
+  // passes the SQL query to the database
+  // returns a JavaScript object of profile data
+}
+
+// module: application
+function displayUserDescription(username) {
+  const profile = loadUserProfile(username);
+
+  console.log(profile.description);
+}
+```
+
+It's a subtle change:
+
+![Dependency Inversion](/images/dependency-inversion.png)
+
+- `displayUserDescription` still depends on `loadUserProfile`
+- `loadUserProfile` no longer accepts SQL. It takes a username instead
+- This means no SQL or database details leak out
+- module `userdata` now _also_ depends on this new abstraction: it must implement `loadUserProfile( username )`
+
+> High level modules depend on abstractions, not on details
+
+The old code had the `application` module depend on the low-level details of SQL, database tables and column names.
+
+After Dependency Inversion, both modules depend on the high-level abstraction of `loadUserProfile( username )`.
+
+This means that module `application` has no knowledge of how the data is stored. Any changes to those details _do not affect_ the module.
+
+Module `userdata` is now the only place (DRY) that contains knowledge of how to work with the database. It _adapts_ the data returned from that into our high level abstraction.
+
+> Dependency Inversion is a powerful technique for splitting up an application.
