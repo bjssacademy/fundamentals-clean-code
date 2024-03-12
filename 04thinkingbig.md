@@ -194,20 +194,20 @@ It is "Don't eat the whole elephant" in code structure form.
 
 ### Example: Stack module
 
-A stack is a Last-In, First-Out (LIF) data store.
-
-It can do two things:
+A stack is a Last-In, First-Out (LIFO) data store.
 
 ![Stack module](/images/stack-module.png)
+
+A stack can do two things:
 
 - **Push** something onto the stack
 - **Pop** the last thing that was pushed off the stack
 
 A stack module exposes only the `push` and `pop` operations. Client code can use these operations.
 
-the module _hides_ how that stack is implemented. It may be an array, a linked list or any other means of supporting last-in, first-out.
+The module _hides_ how that stack is implemented. It may be an array, a linked list or any other means of supporting last-in, first-out.
 
-The client code cannot, does not need to and _must not_ know hoe the module works inside.
+The client code cannot, does not need to and _must not_ know how the module works inside.
 
 This is key to minimising disruption caused by changes. This enables agility.
 
