@@ -404,7 +404,17 @@ An equivalent Object Oriented DI technique exists that uses the keyword `interfa
 
 The new module `main` passes the dependency in as the first parameter. It chooses the `loadUserProfile` function from `userdata` _ in this instance_. But it could be any function that takes a username and returns user data.
 
-This is a very powerful idea. We cover it in more depth in "DIP, DI and IoC" in the Engineering Academy. But this is enough to get the idea across.
+There is an important benefit from using DIP and DI:
+
+> The application can be changed at runtime
+
+When we run the application, we could have either configuration, or user input, allowed to change which version of the dependency we supply. We could offer several different data stores for the profile data, and have the code wire up the correct one at start up. Possibly even re-wiring for each request.
+
+The advantages here are flexibility, and the fact that our `application` module is _unaffected_ by this choice. It has no code changes required, and no retesting needed.
+
+This can _eliminate a lot of conditional logic_.
+
+This is huge. DIP and DI are very powerful, practical techniques. We cover it in more depth in "DIP, DI and IoC" in the Engineering Academy.
 
 ## [Next >>](summary.md)
 
