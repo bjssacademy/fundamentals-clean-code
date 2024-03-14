@@ -370,7 +370,7 @@ We have _inverted the dependency_. Instead of `application` depending on `userda
 
 To complete our trick, we need two techniques:
 
-- we must _inject_ the function we want to use to fetch data into `application`. This is \_Dependency Injection'.
+- we must _inject_ the function we want to use to fetch data into `application`. This is _Dependency Injection_.
 - we need a new piece of separate code to _wire up_ `application` to whatever function we want to use to fetch data.
 
 The code looks like this:
