@@ -262,7 +262,9 @@ function displayUserDescription(username) {
 }
 ```
 
-Module `application` depends on `userdata`. Worse, it depends on an _implementation detail_'
+Module `application` depends on `userdata`. Worse, it depends on an _implementation detail_.
+
+(...worse still, it is a SQL injection vulnerability, but let's sweep that one under the carpet for now ...)
 
 Look at the function signature for `loadUserProfile`: it accepts a SQL query string. The function has accidentally exposed an implementation detail - SQL.
 
