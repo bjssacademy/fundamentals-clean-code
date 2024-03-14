@@ -295,9 +295,9 @@ The usual culprits causing leaky abstractions are:
 - global variables
 - anything specific to one implementation instead of all
 - public helper functions
-- public variables - include properties and getter/setter methods
+- public variables - including properties and getter/setter methods
 
-Avoiding these in our designs makes our code simpler to reason about.
+Avoiding these _wherever possible_ in our designs makes our code simpler to reason about.
 
 ### Fixing the leak
 
