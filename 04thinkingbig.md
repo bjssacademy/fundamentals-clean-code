@@ -345,7 +345,7 @@ Well.
 
 Turns out we don't.
 
-### Dependency Inversion Principle
+### Dependency Inversion Principle (DIP)
 
 The current position is that `application` calls a hard-coded function in `userdata`, which prevents us isolating the two modules.
 
@@ -366,7 +366,9 @@ We can make two agreements:
 
 We have _inverted the dependency_. Instead of `application` depending on `userdata`, now both `application` and `userdata` depend on this new agreement.
 
-### Dependency Injection
+This is called the _Dependency Inversion Principle_ or DIP for short. It is one of the five SOLID principles.
+
+### Dependency Injection (DI)
 
 To complete our trick, we need two techniques:
 
@@ -394,7 +396,7 @@ function displayUserDescription(profileSource, username) {
 displayUserDescription(loadUserProfile, "alan");
 ```
 
-This is a Functional Programming approach to Dependency Inversion.
+This is a Functional Programming approach to Dependency Inversion and Dependency Injection.
 
 An equivalent Object Oriented DI technique exists that uses the keyword `interface` to specify the contract precisely. We need Typescript (or another language) to do that.
 
