@@ -418,4 +418,8 @@ This is huge. DIP and DI are very powerful, practical techniques. We cover it in
 
 ## [Next >>](summary.md)
 
-That completes our BJSS Academy Guide to Clean Code. In the final chapter, we'll summarise and link to Further Resources to help you with this critical topic.
+That completes our BJSS Academy Guide to Clean Code. We have dipped our toe into the rich waters of Software Design. Clean Code at the function level is hugely enhanced by a clean design with well separated modules.
+
+Software Design is a large topic (also addressed in [BJSS Academy Guide to Advanced TDD](https://github.com/bjssacademy/advanced-tdd)), so we'll stop here for now.
+
+In the final chapter, we'll summarise and link to Further Resources.
