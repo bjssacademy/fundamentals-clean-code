@@ -192,6 +192,8 @@ This was a foundation of Object-Oriented Programming, and also of every module o
 
 It is "Don't eat the whole elephant" in code structure form.
 
+> What’s the _least_ that a caller of a module needs to know about it in order to use it?
+
 ### Example: Stack module
 
 A stack is a Last-In, First-Out (LIFO) data store.
@@ -213,40 +215,44 @@ This is key to minimising disruption caused by changes. This enables agility.
 
 > **Module:** Hides detail. Exposes a minimal, complete abstraction
 
-## Dependency Inversion Principle
+## Module Dependencies
 
-What happens when you have one module use another module?
+Applications are built from many modules. Some of them inetract with each other.
 
-We have a _dependency_.
+When module A uses module B, then we say _A has a dependency on B_.
 
-When module A uses operations provided by module B, we say module A _depends on_ module B.
+Modules exist to separate different areas of code so that the code can change at different rates.
 
-This is all well and good until module B changes the operations it provides.
+But that doesn't always happen.
 
-All changes to the programming interface of module B will require changes in every other module that uses them.
+### Leaky Abstractions
 
-Oh dear:
+Sometimes, one module depends on implementation details of a dependency. It shouldn't, but that's life.
 
-- Rework slows delivery and costs money
-- Retest of all affected modules is required
+This is known as a _leaky abstraction_, and it's a mess, because:
 
-Let's walk through an example of this ckind of change and how we might avoid it.
+- Changes in one module require changes in the other, even though they should be separate
+- We cannot test or otherwise use the modules apart from each other
+
+We've made modular spaghetti.
 
 ### Example: Fetching a user profile
 
-Our app wants to fetch some user profile data from a SQL database.
+Our app wants to fetch user profile data from a SQL database.
+We attempt to separate the concerns of application logic and data storage, so we come up with two modules:
 
-We follow the previous advice and create two modules: `application` and `userdata`.
-
-The modules look like this:
+module `userdata` provides this function:
 
 ```javascript
-// module: userdata
 function loadUserProfile(sqlQuery) {
   // passes the SQL query to the database
   // returns a JavaScript object of profile data
 }
+```
 
+and module `application` uses that function:
+
+```javascript
 // module: application
 function displayUserDescription(username) {
   const query = "SELECT * FROM USERS WHERE name='" + username + "'";
@@ -256,33 +262,48 @@ function displayUserDescription(username) {
 }
 ```
 
-Note:
+Module `application` depends on `userdata`. Worse, it depends on an _implementation detail_'
 
-- function loadUserProfile() accepts a raw SQL query string
-- displayUserDescription() creates the SQL query string
-- There is a SQL injection vulnerability, which we won't talk about
+Look at the function signature for `loadUserProfile`: it accepts a SQL query string. The function has accidentally exposed an implementation detail - SQL.
 
-Problem: Changes in module userdata _ripple out_ to module application. Specifically, a change to the table structure of the database must be reflected in the displayUserDescription() function.
+Now that code will compile. You could even get it to pass tests.
 
-#### The problem of leaky abstractions
+But ...
 
-We said [reviously that a module should _hide_ implementation details and _expose_ an abstraction.
+_Every change that affects the SQL query will cause changes to the application_. And it really should not.
 
-This abstraction is known as _leaky_. It is not really abstract. It directly exposes detailed knowledge about SQL and the database table structure.
+> This _change preventer_ is a code smell called [Shotgun Surgery](https://refactoring.guru/smells/shotgun-surgery)
 
-Any changes in these details _leak out_ to every other module.
+#### Developer Symptoms
 
-To avoid the required rework, it would be great if we could fix this.
+- "It's broken all my tests!"
+- "I hate tests. You have to change them all the time, there's more tests than code!"
+- "We can't change the name of that column, sorry"
+- "It would be better to change the database schema, but it would take too long"
 
-Thankfully, we can. We need to fix that leak. And we do this using _Dependency Inversion_.
+Sound familiar?
 
-### Dependency Inversion
+This is the consequence of high coupling between modules caused by a leaky abstraction
+![High coupling on dependency](/images/high-coupling.png)
 
-The problem above is that our `application` module depends on 'userdata', causing changes to ripple out.
+#### Usual culprits
 
-Instead, we can make _both_ modules `application` and `userdata` depend not on each other, but on a third abstraction.
+The usual culprits causing leaky abstractions are:
 
-Revised code might be as simple as this:
+- global variables
+- anything specific to one implementation instead of all
+- public helper functions
+- public variables - include properties and getter/setter methods
+
+Avoiding these in our designs makes our code simpler to reason about.
+
+### Fixing the leak
+
+Anyway. Can we do better?
+
+Going back to design thinking, module `application` only needs to display profile data. It does not need to know where that data came from. It certainly does not _require_ the data to come from an SQL store.
+
+So how about we fix the code, to make that clear:
 
 ```javascript
 // module: userdata
@@ -300,23 +321,87 @@ function displayUserDescription(username) {
 }
 ```
 
-It's a subtle change:
+It's a subtle change at the code level. But profound at the design level.
+
+Module `application` now only depends on a _stable, true abstraction_: that calling `loadUserProfile()` with a `username` will return the profile data. From anywhere. No matter how it is implemented.
+
+It could come from a SQL store as before, but we have more options. It could also come from a file, a web service, a local cache. A test double.
+
+The function `loadUserProfile()` now represents a true abstraction of the data storage. Outside module `userdata`, nothing has any idea at all of how `userdata` is implemented. Just as things should be.
+
+## Breaking the dependency
+
+Well, almost as things should be.
+
+We have separated concerns, but module `application` still has a hard-coded dependency on module `userdata`. It is the call to function `loadUserProfile`, which is directly wired to that one, specific function.
+
+That means we can't easily pull those two modules apart.
+
+That's a shame if we want to test them or reuse them. But surely, this is the best we can do? I mean we _have_ to call a function to load that data, don't we?
+
+Well.
+
+Turns out we don't.
+
+### Dependency Inversion Principle
+
+The current position is that `application` calls a hard-coded function in `userdata`, which prevents us isolating the two modules.
+
+What if it didn't?
+
+What if we agreed on a more flexible connection between the two modules?
+
+Instead of `application` depending on `userdata`, how about we make neither of them know about each other. Instead, we make them both depend on a new abstraction?
 
 ![Dependency Inversion](/images/dependency-inversion.png)
 
-- `displayUserDescription` still depends on `loadUserProfile`
-- `loadUserProfile` no longer accepts SQL. It takes a username instead
-- This means no SQL or database details leak out
-- module `userdata` now _also_ depends on this new abstraction: it must implement `loadUserProfile( username )`
+To do this, we introduce the idea of an `interface` - an agreement between two modules that lives outside any implementation.
 
-> High level modules depend on abstractions, not on details
+We can make two agreements:
 
-The old code had the `application` module depend on the low-level details of SQL, database tables and column names.
+- `application` will call a function _it is given_ with the username, and receive the data
+- `userdata` will provide a suitable function
 
-After Dependency Inversion, both modules depend on the high-level abstraction of `loadUserProfile( username )`.
+We have _inverted the dependency_. Instead of `application` depending on `userdata`, now both `application` and `userdata` depend on this new agreement.
 
-This means that module `application` has no knowledge of how the data is stored. Any changes to those details _do not affect_ the module.
+### Dependency Injection
 
-Module `userdata` is now the only place (DRY) that contains knowledge of how to work with the database. It _adapts_ the data returned from that into our high level abstraction.
+To complete our trick, we need two techniques:
 
-> Dependency Inversion is a powerful technique for splitting up an application.
+- we must _inject_ the function we want to use to fetch data into `application`. This is \_Dependency Injection'.
+- we need a new piece of separate code to _wire up_ `application` to whatever function we want to use to fetch data.
+
+The code looks like this:
+
+```javascript
+// module: userdata
+function loadUserProfile(username) {
+  const query = "SELECT * FROM USERS WHERE name='" + username + "'";
+  // passes the SQL query to the database
+  // returns a JavaScript object of profile data
+}
+
+// module: application
+function displayUserDescription(profileSource, username) {
+  const profile = profileSource(username);
+
+  console.log(profile.description);
+}
+
+// Module: main
+displayUserDescription(loadUserProfile, "alan");
+```
+
+This is a Functional Programming approach to Dependency Inversion.
+
+An equivalent Object Oriented DI technique exists that uses the keyword `interface` to specify the contract precisely. We need Typescript (or another language) to do that.
+
+#### How does it work?
+
+The new module `main` passes the dependency in as the first parameter. It chooses the `loadUserProfile` function from `userdata` _ in this instance_. But it could be any function that takes a username and returns user data.
+
+This is a very powerful idea. We cover it in more depth in "DIP, DI and IoC" in the Engineering Academy. But this is enough to get the idea across.
+
+## [Next >>](summary.md)
+
+That completes our BJSS Academy Guide to Clean Code. In the final chapter, we'll summarise and link to Further Resources to help you with this critical topic.
