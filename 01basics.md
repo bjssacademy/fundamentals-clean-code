@@ -1,6 +1,8 @@
 # Clean Code Basics
 
-There are a few low-hanging fruits when it comes to making code readable. Applying these consistently will give your code an instant, drastic boost in clarity.
+There is some few low-hanging fruit to making code readable.
+
+One easy thing to do is improve names.
 
 Programming languages are general purpose. Our code is specific to our needs. Therefore the programming language keywords don't add much by way of explaining our code. That must happen by the names we choose for things.
 
@@ -16,17 +18,21 @@ let t = 0.0;
 
 We see a variable declared and initialised to zero.
 
-_Why is it there? What does t represent?_
+_Why is `t` there? What does `t` represent?_
 
-The meaning is unclear. The simplest way to help our readers is to name the variable for what it holds.
+The meaning of `t` is unclear. It could be anything. Not good when we are in ahurry to understand the code!
 
-Let's say in this case our variable `t` is holding the total price of an invoice.
+The simplest way to help our readers is to name the variable for what it holds.
+
+Imagine in this case our variable `t` holds the total price of an invoice.
 
 Let's call it that:
 
 ```javascript
 let totalPrice = 0.0;
 ```
+
+No surprises there.
 
 That now helps us understand what that variable is _intended_ to be used for.
 
@@ -94,9 +100,17 @@ All programs feature blocks of code.
 
 In all but the simplest of scripts, we aim to divide code up into smaller blocks. We then assemble these blocks to make a bigger application. This is [decomposition](https://www.bbc.co.uk/bitesize/topics/zkcqn39/articles/z8ngr82#zg73r2p), where we take a big problem and split it up.
 
-Most languages provide tools to give names to these code blocks and organise them. Typically functions or procedures. Also classes and methods in object-oriented languages.
+Most languages provide tools to give names to these code blocks and organise them:
 
-It's important to be able to tell what a function does from its name.
+- Function
+- Procedure
+- Module export/import
+- Package
+- Class and Method in object-oriented languages
+
+Let's start with the most common code block, the function.
+
+It's important to be able to tell what a function does _from its name_, not by having to read the code block.
 
 What does this function do?
 
@@ -107,6 +121,8 @@ function z(a) {
 ```
 
 We have to look inside the function and _reverse engineer_ what it does. In this case it seems to return the word Hello, and then add on whatever thing we passed in to it.
+
+_This takes time_. It is time wasted by everybody _every time_ they have to read this code.
 
 Let's improve both the function name and the variable name to be more descriptive:
 

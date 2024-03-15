@@ -17,6 +17,14 @@ The chapter thinking small outlines severl of the more common refactoring steps.
 - [Refactoring on Amazon UK](https://www.amazon.co.uk/Refactoring-Improving-Existing-Addison-Wesley-Technology/dp/0134757599)
 - [BJSS O'Reilly (free)](https://learning.oreilly.com/library/view/-/9780134757681/)
 
+## Refactoring Guru
+
+This is an online course we use in Academy, with excellent free-to-use resources.
+
+It covers Refactoring - the same as the book above - but in several languages and with interactive examples. It also covers _Code Smells_. This is the name given to those 'suspicions' we have that a piece of code could be improved. It provides a helpful catalogue of things to look out for.
+
+[Refactoring Guru](https://refactoring.guru/refactoring)
+
 ## Clean Code, Martin
 
 An excellent guide to writing clean code. It is packed with techniques, and explains the fundamentals behind clean code well. Another book that will rapidly raise your game.
