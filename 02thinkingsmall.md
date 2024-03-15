@@ -128,7 +128,7 @@ function showFizzbuzzResults() {
 
 Already, that is a little easier to read. The complex nested ternary staements now attempt to explain themselves. There is much more we can do here to simplify things, but extracting the conditional expression adds a lot of clarity, simply. Mostly because it _gives us words from the problem domain_ in the code.
 
-### Extract if / else block
+### Extract if / else blocks
 
 Another simple idea is to extract the code that lives inside the if and else blocks into their own functions.
 

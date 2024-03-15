@@ -150,7 +150,7 @@ A change to an SQL query will have _no effect whatsoever_ on the business rules,
 
 This approach is very common, and a driver towards _three tier architecture_ and _hexagonal architecture_.
 
-### Coupling and Cohesion
+## Coupling and Cohesion
 
 The tools we use to manage that all relate to one simple idea:
 
@@ -215,7 +215,7 @@ This is key to minimising disruption caused by changes. This enables agility.
 
 > **Module:** Hides detail. Exposes a minimal, complete abstraction
 
-## Module Dependencies
+## Managing Module Dependencies
 
 Applications are built from many modules. Some of them inetract with each other.
 
@@ -331,7 +331,7 @@ It could come from a SQL store as before, but we have more options. It could als
 
 The function `loadUserProfile()` now represents a true abstraction of the data storage. Outside module `userdata`, nothing has any idea at all of how `userdata` is implemented. Just as things should be.
 
-## Breaking the dependency
+## Reducing coupling between dependencies
 
 Well, almost as things should be.
 
