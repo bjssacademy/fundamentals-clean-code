@@ -41,7 +41,7 @@ Imagine doing hundreds of similar things each week - but with millions of lines 
 
 ## Tell us it doesn't have to be this way!
 
-The fact is that code that reads easy writes hard. Most of the readability of code is set when we write it. If we needlessly complicate our code, we will bewilder future readers.
+The fact is that **code that reads easy writes hard**. Most of the readability of code is set when we write it. If we needlessly complicate our code, we will bewilder future readers.
 
 So we must _decide_ to be part of the solution.
 
@@ -91,16 +91,18 @@ function toFizzBuzzText(n) {
 }
 ```
 
-Now, this is longer. It's more wordy. It has more lines of code. It takes up more space in the source file.
-
-#### Towards simpler code
+Now, this is longer. It's more wordy. It has more lines of code. It takes up more space in the source file. It is also recognisably [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz)
 
 But it is simpler.
 
-- It has _domain terms_ - words that explain the problem being solved
-- It uses the simpler syntax of if-return rather than nested ternary statements
+### The value of simple code
+
+Simple code has great value. We can see some of the qualities of simple code in the previous example:
+
+- It uses _domain terms_ - words that explain the problem being solved
+- It uses simpler syntax. One example: replace nested ternary expressions with if/return
 - It removes the unnecessary 'optimisation' (ahem) surrounding the "zz"
-- Each line does less, reducing _cognitive load_
+- Each line does less. This reduces _cognitive load_
 - The flow of exeuction is straightforward
 - Helper functions give names that _explain_ the steps of the solution
 
@@ -147,13 +149,15 @@ Professionally, working code is merely table stakes. Of course it must do _at le
 
 The first task in writing new code is to understand the code that is already there. Then we can decide how our new code fits together with it. We never write code in isolation; it will always have to integrate with what's there.
 
-Being able to understand what's there is critical.
+Being able to understand what's already there is critical.
 
-_That means that our code must be understood by others and their code must be understandable to us_.
+> Our code must be understood by others
+>
+> Their code must be understood by us
 
 ### Fewer defects
 
-Defects - bugs - cost us. They slow down delivery. They can cause financial and reputational loss.
+Defects - or bugs, as we call them - cost us. They slow down delivery. They can cause financial and reputational loss.
 
 Software defects have been known to [kill people](http://sunnyday.mit.edu/papers/therac.pdf) or result in their [false imprisonment](https://www.bbc.co.uk/news/business-56718036).
 
