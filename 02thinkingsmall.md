@@ -10,7 +10,7 @@ We mortals simply cannot fit all that into our head.
 
 ## Don't eat the whole elephant
 
-As the saying goes, "How do you eat an elephant? One bite at a time".
+As the saying goes, "How do you eat an elephant? One bite at a time!".
 
 We cannot avoid complexity entirely. Some of what our clients need doing is inherently complex. But that does not mean we have to solve all of the problems in one single function.
 

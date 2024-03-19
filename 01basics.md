@@ -1,6 +1,6 @@
 # Clean Code Basics
 
-There is some few low-hanging fruit to making code readable.
+There is some low-hanging fruit to making code readable.
 
 One easy thing to do is improve names.
 
