@@ -1,6 +1,6 @@
 # Further Reading
 
-A guide like this can only scratch the surface (pleasantly, we trust) of software design.
+A guide like this can only scratch the surface (pleasantly, we trust) of software design and clean coding techniques.
 
 Here are our book recommendations to dive deeper
 
@@ -21,9 +21,17 @@ The chapter thinking small outlines severl of the more common refactoring steps.
 
 This is an online course we use in Academy, with excellent free-to-use resources.
 
-It covers Refactoring - the same as the book above - but in several languages and with interactive examples. It also covers _Code Smells_. This is the name given to those 'suspicions' we have that a piece of code could be improved. It provides a helpful catalogue of things to look out for.
+It covers Refactoring - the same as the book above - but in several languages and with interactive examples. It provides a helpful catalogue of things to look out for.
 
 [Refactoring Guru](https://refactoring.guru/refactoring)
+
+## Code Smells
+
+The name comes from the smell of milk as it starts to sour. The milk doesn't look completely wrong ... but something is not quite right about it. And you want to fix the problem before it gets worse.
+
+Code structure over time will deviate from sanity. Before it becomes an obvious [ball of mud](https://wiki.c2.com/?BigBallOfMud), it exhibits small hints of low quality. These are _code smells_.
+
+A useful online catalogue is found at [Code Smells](https://refactoring.guru/refactoring/smells)
 
 ## Clean Code, Martin
 
