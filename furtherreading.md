@@ -40,6 +40,12 @@ An excellent guide to writing clean code. It is packed with techniques, and expl
 - [Clean Code on Amazon UK](https://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM)
 - [BJSS O'Reilly (free)] (https://www.oreilly.com/library/view/clean-code-a/9780136083238)
 
+### Tim Ottinger on Names
+
+A reflection on naming things, and what's changed since Clean Code was written. Not much, it turns out, but the reflections on programming as a social activity (names are social) is far more important than it ever was.
+
+- [Meaningful names revisted, Tim Ottinger](https://www.industriallogic.com/blog/meaningful-names-revisited/)
+
 ## A Philosophy of Software Design, Ousterhout
 
 Great depth into how and why we choose between alternate ways to code a problem. This might just be an eye-opener. Comprehensive and timeless advice across all languages.
@@ -49,6 +55,8 @@ Great depth into how and why we choose between alternate ways to code a problem.
 ## Agile Software Development, Martin
 
 A comprehensive guide to the Object-Oriented style of software design. Focusses on the design-level choices using large worked examples. Great resource on SOLID, DIP and DI. More importantly, this book is a guide to deciding how, where and why to split up our code into smaller chunks
+
+- [Agile software development, Martin](https://www.amazon.co.uk/Software-Development-Principles-Patterns-Practices-dp-1292025948/dp/1292025948/)
 
 ### Shameless plug section
 
