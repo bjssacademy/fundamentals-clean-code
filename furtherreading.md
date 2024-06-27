@@ -42,7 +42,7 @@ An excellent guide to writing clean code. It is packed with techniques, and expl
 
 ### Tim Ottinger on Names
 
-A reflection on naming things, and what's changed since Clean Code was written. Not much, it turns out, but the reflections on programming as a social activity (names are social) is far more important than it ever was.
+A reflection on naming things, and what's changed since Clean Code was written. Not much, it turns out, but the reflections on programming as a social activity (names are social) are more important than ever.
 
 - [Meaningful names revisted, Tim Ottinger](https://www.industriallogic.com/blog/meaningful-names-revisited/)
 
